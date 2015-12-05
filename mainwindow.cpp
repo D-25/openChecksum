@@ -4,6 +4,8 @@
 #include <QCryptographicHash>
 #include <QFile>
 
+#include "dialogstyle.h"
+
 /*
  * A primordial version of the program.
  * More functions coming soon, just stay tuned.
