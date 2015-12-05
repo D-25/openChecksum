@@ -57,6 +57,7 @@ void MainWindow::on_startCheck_clicked()
         while(!fileSelected.atEnd())
         {
             checkProcess.addData(fileSelected.read(byteLoad));
+            QCoreApplication::processEvents();
             ui->checkInfo->setText(tr("Analisi dell'impronta del file selezionato in corso..."));
             this->setEnabled(false);
         }
