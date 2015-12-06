@@ -13,6 +13,8 @@
  * Please.
  */
 
+bool aborted; // I know, this is ugly.
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -20,11 +22,33 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     ui->checkingBar->setVisible(false);
+    ui->abortButton->setVisible(false);
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+// disableAll and enableAll was used instead of this.setEnable(false) to
+// mantain AbortButton enabled.
+
+void MainWindow::disableAll()
+{
+    ui->startCheck->setEnabled(false);
+    ui->fileSelectLabel->setEnabled(false);
+    ui->fileSelectBrowse->setEnabled(false);
+    ui->comparationCheck->setEnabled(false);
+    ui->comparationString->setEnabled(false);
+}
+
+void MainWindow::enableAll()
+{
+    ui->startCheck->setEnabled(true);
+    ui->fileSelectLabel->setEnabled(true);
+    ui->fileSelectBrowse->setEnabled(true);
+    ui->comparationCheck->setEnabled(true);
+    ui->comparationString->setEnabled(true);
 }
 
 void MainWindow::on_fileSelectBrowse_clicked()
@@ -57,23 +81,49 @@ void MainWindow::on_startCheck_clicked()
     QCryptographicHash checkProcess(QCryptographicHash::Md5);
 
         fileSelected.open(QFile::ReadOnly);
+        aborted = false;
         while(!fileSelected.atEnd())
         {
             checkProcess.addData(fileSelected.read(byteLoad));
             QCoreApplication::processEvents();
             ui->checkInfo->setText(tr("Analisi dell'impronta del file selezionato in corso..."));
+
             ui->checkingBar->setVisible(true);
-            this->setEnabled(false);
+            ui->abortButton->setVisible(true);
+
+            disableAll();
+
+            if (aborted == true)
+            {
+                break;
+            }
+
         }
 
-        this->setEnabled(true);
+        enableAll();
+
         ui->checkingBar->setVisible(false);
+        ui->abortButton->setVisible(false);
         QByteArray md5Data = checkProcess.result();
 
-        if (ui->comparationCheck->isChecked())
+        if (aborted == false)
         {
-            comparationStart(ui->comparationString->text(), md5Data.toHex()); // Check between two string, one inserted by user.
+            ui->checkInfo->setText(tr("MD5 del File scelto: ") + md5Data.toHex() );
+
+            if (ui->comparationCheck->isChecked())
+            {
+                comparationStart(ui->comparationString->text(), md5Data.toHex()); // Check between two string, one inserted by user.
+            }
         }
 
-        ui->checkInfo->setText(tr("MD5 del File scelto: ") + md5Data.toHex() );
+        else
+        {
+                ui->checkInfo->setText(tr("Operazione annullata dall'utente."));
+        }
+
+        }
+
+void MainWindow::on_abortButton_clicked()
+{
+    aborted = true;
 }
