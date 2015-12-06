@@ -17,6 +17,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    ui->checkingBar->setVisible(false);
 }
 
 MainWindow::~MainWindow()
@@ -59,10 +61,12 @@ void MainWindow::on_startCheck_clicked()
             checkProcess.addData(fileSelected.read(byteLoad));
             QCoreApplication::processEvents();
             ui->checkInfo->setText(tr("Analisi dell'impronta del file selezionato in corso..."));
+            ui->checkingBar->setVisible(true);
             this->setEnabled(false);
         }
 
         this->setEnabled(true);
+        ui->checkingBar->setVisible(false);
         QByteArray md5Data = checkProcess.result();
 
         ui->checkInfo->setText(tr("MD5 del File scelto: ") + md5Data.toHex() );
