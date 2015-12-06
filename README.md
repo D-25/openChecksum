@@ -1,5 +1,18 @@
 # Md5Checker
 Check the MD5 with an easy tool developed with QT.
 
-### Primordial Version
-Please note, this is just the base of the application. More features are coming.
+### Features Planning
+This project is just starting: we have many ideas and we are working to make it all. Just stay tuned!
+
+#### To Do List
+- [ ] Translate at least in English (now is only in Italian and my english is really bad: can you help me?)
+- [ ] Settings!
+- [ ] Implement SHA checking.
+- [ ] Better Windows integration.
+- [ ] Multiple file checking.
+- [ ] Drag & Drop support.
+- [ ] Graphics and Icon.
+- [ ] ...
+
+### Compilation
+You can compile this project easily: clone this project and run `qmake Md5Checker.pro` and then `make` it.
