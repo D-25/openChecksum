@@ -5,6 +5,7 @@
 #include <QFile>
 
 #include "dialogstyle.h"
+#include "comparechecksums.h"
 
 /*
  * A primordial version of the program.
@@ -69,18 +70,9 @@ void MainWindow::on_startCheck_clicked()
         ui->checkingBar->setVisible(false);
         QByteArray md5Data = checkProcess.result();
 
-        if (ui->comparationCheck->isChecked()) // Check if file selected is equal to string digited by user.
+        if (ui->comparationCheck->isChecked())
         {
-            if(ui->comparationString->text() == md5Data.toHex())
-            {
-                dialogStyle_info(tr("Risultati della comparazione"), tr("Il controllo è riuscito: i due valori sono uguali."));
-            }
-
-            else
-            {
-                dialogStyle_info(tr("Risultati della comparazione"), tr("<b>I due valori non combaciano.</b><br/><br/>Originale: ") + ui->comparationString->text() + tr("<br/>File analizzato: ") + md5Data.toHex() + tr("<br/><br/>"
-                                       "Utilizzare questo File potrebbe portare a risultati indesiderati: riscaricare il File se necessario fino a quando il controllo non riesce."));
-            }
+            comparationStart(ui->comparationString->text(), md5Data.toHex()); // Check between two string, one inserted by user.
         }
 
         ui->checkInfo->setText(tr("MD5 del File scelto: ") + md5Data.toHex() );

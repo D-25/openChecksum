@@ -14,9 +14,11 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    dialogstyle.cpp
+    dialogstyle.cpp \
+    comparechecksums.cpp
 
 HEADERS  += mainwindow.h \
-    dialogstyle.h
+    dialogstyle.h \
+    comparechecksums.h
 
 FORMS    += mainwindow.ui
