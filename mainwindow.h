@@ -27,6 +27,10 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+
+protected:
+    void dragEnterEvent(QDragEnterEvent *event);
+    void dropEvent(QDropEvent *event);
 };
 
 #endif // MAINWINDOW_H

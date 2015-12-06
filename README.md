@@ -10,7 +10,7 @@ This project is just starting: we have many ideas and we are working to make it 
 - [ ] Implement SHA checking.
 - [ ] Better Windows integration.
 - [ ] Multiple file checking.
-- [ ] Drag & Drop support.
+- [x] Drag & Drop support.
 - [ ] Graphics and Icon.
 - [ ] ...
 
