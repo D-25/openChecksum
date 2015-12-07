@@ -1,6 +1,7 @@
 #include "dialogstyle.h"
 #include <iostream>
 #include <QMessageBox>
+#include <QString>
 
 // This functions is used to reduce code when Md5Checker need to call a MessageBox. Style shows a big blue title
 // with no icon.
@@ -11,7 +12,7 @@ void dialogStyle_info(QString title, QString message)
     // Simple dialog.
 
     QMessageBox messageBox;
-    messageBox.setText("<span style=\"color:#006699;\"><span style=\"font-size:20px;\">" + title + "</span></span><br/>" + message);
+    messageBox.setText(QString("<span style=\"color:#006699;\"><span style=\"font-size:20px;\">%1</span></span><br/>%2").arg(title, message));
     messageBox.setIcon(QMessageBox::NoIcon);
     messageBox.exec();
 }
@@ -33,7 +34,7 @@ int dialogStyle_question(QString title, QString message, QString button_Yes, QSt
     int yesSelected = 0;
 
     QMessageBox messageBox;
-    messageBox.setText("<span style=\"color:#006699;\"><span style=\"font-size:20px;\">" + title + "</span></span><br/>" + message);
+    messageBox.setText(QString("<span style=\"color:#006699;\"><span style=\"font-size:20px;\">%1</span></span><br/>%2").arg(title, message));
     messageBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
     messageBox.setButtonText(QMessageBox::Yes, button_Yes);
     messageBox.setButtonText(QMessageBox::No, button_No);

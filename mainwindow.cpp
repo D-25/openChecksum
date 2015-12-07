@@ -81,9 +81,9 @@ void MainWindow::dropEvent(QDropEvent *event)
 
         if (!droppedLocation.contains(QString("file:///"))) // Block all files dropped by unknown position.
         {
-            dialogStyle_info(tr("Posizione non valida."), tr("Il file <b>") + droppedLocation + tr("</b> possiede "
+            dialogStyle_info(tr("Posizione non valida."), tr("Il file <b>%1</b> possiede "
                                  "una posizione non valida, pertanto è stato ignorato al momento del "
-                                 "trascinamento."));
+                                 "trascinamento.").arg(droppedLocation));
             break;
         }
 
@@ -149,14 +149,15 @@ void MainWindow::on_startCheck_clicked()
         ui->checkingBar->setVisible(false);
         ui->abortButton->setVisible(false);
         QByteArray md5Data = checkProcess.result();
+        QString md5DataHEX = md5Data.toHex();
 
         if (aborted == false)
         {
-            ui->checkInfo->setText(tr("MD5 del File scelto: ") + md5Data.toHex() );
+            ui->checkInfo->setText(tr("MD5 del File scelto: %1").arg(md5DataHEX));
 
             if (ui->comparationCheck->isChecked())
             {
-                comparationStart(ui->comparationString->text(), md5Data.toHex()); // Check between two string, one inserted by user.
+                comparationStart(ui->comparationString->text(), md5DataHEX); // Check between two string, one inserted by user.
             }
         }
 
