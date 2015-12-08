@@ -2,7 +2,6 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-//#include "SettingWindow.h"
 
 namespace Ui {
 class MainWindow;
@@ -29,11 +28,7 @@ private slots:
     void disableAll();
     void enableAll();
 
-
-
-    void on_SpeedSelect_currentIndexChanged(int index);
-
-    void on_SettingButton_clicked();
+    void on_pushButton_clicked();
 
 private:
     Ui::MainWindow *ui;

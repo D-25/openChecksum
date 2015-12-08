@@ -38,7 +38,7 @@
       <x>10</x>
       <y>0</y>
       <width>471</width>
-      <height>47</height>
+      <height>46</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
@@ -66,7 +66,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="SettingButton">
+        <widget class="QPushButton" name="pushButton">
          <property name="text">
           <string/>
          </property>

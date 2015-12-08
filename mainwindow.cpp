@@ -6,8 +6,9 @@
 #include <QDragEnterEvent>
 #include <QMimeData>
 #include <QUrl>
-#include "settingspage.h"
 #include <QDebug>
+
+#include "settingpage.h"
 #include "dialogstyle.h"
 #include "comparechecksums.h"
 
@@ -202,8 +203,8 @@ void MainWindow::on_SpeedSelect_currentIndexChanged(int index)
 
 }
 
-void MainWindow::on_SettingButton_clicked()
+void MainWindow::on_pushButton_clicked()
 {
-    SettingsPage setting;
-    setting.exec();
+    SettingPage settings;
+    settings.exec();
 }

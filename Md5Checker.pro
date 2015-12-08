@@ -16,19 +16,15 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     dialogstyle.cpp \
     comparechecksums.cpp \
-    settingspage.cpp
+    settingpage.cpp
 
 HEADERS  += mainwindow.h \
     dialogstyle.h \
     comparechecksums.h \
-    settingspage.h
+    settingpage.h
 
-<<<<<<< HEAD
 FORMS    += mainwindow.ui \
-    settingspage.ui
-=======
-FORMS    += mainwindow.ui
+    settingpage.ui
 
 RESOURCES += \
     icons.qrc
->>>>>>> refs/remotes/D-25/master
