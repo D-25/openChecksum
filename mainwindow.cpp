@@ -186,19 +186,18 @@ void MainWindow::on_SpeedSelect_currentIndexChanged(int index)
 {
     switch(index){
     case 0:
-        Speed = 150000;         //lento
+        Speed = 4096;         //slow
         break;
 
     case 1:
-        Speed = 260000;         //medio (default)
+        Speed = 262144;         //default
         break;
 
     case 2:
-        Speed = 370000;         //veloce
+        Speed = 524288;         //speedy
         break;
     }
 
-    QString IndexToString = QString::number(index);
-    qDebug() << "Selected Speed : " + IndexToString;
+    qDebug() << "Selected Speed : " << Speed;
 
 }
