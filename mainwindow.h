@@ -28,6 +28,8 @@ private slots:
     void disableAll();
     void enableAll();
 
+    void on_pushButton_clicked();
+
 private:
     Ui::MainWindow *ui;
 

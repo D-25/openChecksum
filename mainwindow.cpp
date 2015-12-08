@@ -8,6 +8,7 @@
 #include <QUrl>
 #include <QDebug>
 
+#include "settingpage.h"
 #include "dialogstyle.h"
 #include "comparechecksums.h"
 
@@ -200,4 +201,10 @@ void MainWindow::on_SpeedSelect_currentIndexChanged(int index)
 
     qDebug() << "Selected Speed : " << Speed;
 
+}
+
+void MainWindow::on_pushButton_clicked()
+{
+    SettingPage settings;
+    settings.exec();
 }

@@ -15,13 +15,16 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     dialogstyle.cpp \
-    comparechecksums.cpp
+    comparechecksums.cpp \
+    settingpage.cpp
 
 HEADERS  += mainwindow.h \
     dialogstyle.h \
-    comparechecksums.h
+    comparechecksums.h \
+    settingpage.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    settingpage.ui
 
 RESOURCES += \
     icons.qrc
