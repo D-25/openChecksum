@@ -22,6 +22,10 @@ private slots:
     void on_startCheck_clicked();
 
     void on_abortButton_clicked();
+
+    void on_SpeedSelect_currentIndexChanged(int index);
+
+
     void disableAll();
     void enableAll();
 

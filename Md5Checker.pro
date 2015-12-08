@@ -23,5 +23,12 @@ HEADERS  += mainwindow.h \
     comparechecksums.h \
     settingspage.h
 
+<<<<<<< HEAD
 FORMS    += mainwindow.ui \
     settingspage.ui
+=======
+FORMS    += mainwindow.ui
+
+RESOURCES += \
+    icons.qrc
+>>>>>>> refs/remotes/D-25/master
