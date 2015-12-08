@@ -22,12 +22,21 @@
  */
 
 bool aborted; // I know, this is ugly.
+int Speed = 262144;
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    //populating the speeds' combobox
+    ui->SpeedSelect->addItem("Lento");
+    ui->SpeedSelect->addItem("Medio (Default)");
+    ui->SpeedSelect->addItem("Veloce");
+
+    //setting first combobox's value (default)
+    ui->SpeedSelect->setCurrentIndex(1);
 
     ui->checkingBar->setVisible(false);
     ui->abortButton->setVisible(false);
@@ -120,7 +129,7 @@ void MainWindow::on_startCheck_clicked()
     QString fileName = ui->fileSelectLocation->text();
     QFile fileSelected(fileName);
 
-    int byteLoad = 262144; // TODO: more?
+    int byteLoad = Speed; // TODO: more?
 
     QCryptographicHash checkProcess(QCryptographicHash::Md5);
 
@@ -170,4 +179,25 @@ void MainWindow::on_startCheck_clicked()
 void MainWindow::on_abortButton_clicked()
 {
     aborted = true;
+}
+
+void MainWindow::on_SpeedSelect_currentIndexChanged(int index)
+{
+    switch(index){
+    case 0:
+        Speed = 150000;         //lento
+        break;
+
+    case 1:
+        Speed = 260000;         //medio (default)
+        break;
+
+    case 2:
+        Speed = 370000;         //veloce
+        break;
+    }
+
+    QString IndexToString = QString::number(index);
+    qDebug() << "Selected Speed : " + IndexToString;
+
 }

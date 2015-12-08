@@ -52,7 +52,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>10</y>
+      <y>0</y>
       <width>471</width>
       <height>43</height>
      </rect>
@@ -85,20 +85,20 @@
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>60</y>
+      <y>50</y>
       <width>471</width>
-      <height>22</height>
+      <height>31</height>
      </rect>
     </property>
     <layout class="QHBoxLayout" name="horizontalLayout_2">
      <item>
       <widget class="QCheckBox" name="comparationCheck">
        <property name="text">
-        <string>Compara con il seguente</string>
+        <string>Compara con :</string>
        </property>
       </widget>
      </item>
@@ -109,15 +109,35 @@
        </property>
       </widget>
      </item>
+     <item>
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>Velocità :</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="SpeedSelect">
+       <property name="maximumSize">
+        <size>
+         <width>130</width>
+         <height>16777215</height>
+        </size>
+       </property>
+       <property name="sizeAdjustPolicy">
+        <enum>QComboBox::AdjustToContents</enum>
+       </property>
+      </widget>
+     </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>10</x>
       <y>120</y>
       <width>471</width>
-      <height>101</height>
+      <height>102</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_2">

@@ -21,7 +21,6 @@ private slots:
     void on_startCheck_clicked();
 
     void on_abortButton_clicked();
-
     void disableAll();
     void enableAll();
 
