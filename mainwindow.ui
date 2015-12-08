@@ -75,7 +75,7 @@
       <x>10</x>
       <y>110</y>
       <width>471</width>
-      <height>102</height>
+      <height>103</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -156,7 +156,11 @@
        <item>
         <widget class="QToolButton" name="abortButton">
          <property name="text">
-          <string>X</string>
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset resource="icons.qrc">
+           <normaloff>:/icons/abort</normaloff>:/icons/abort</iconset>
          </property>
         </widget>
        </item>
@@ -253,6 +257,8 @@
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <resources>
+  <include location="icons.qrc"/>
+ </resources>
  <connections/>
 </ui>

@@ -22,3 +22,6 @@ HEADERS  += mainwindow.h \
     comparechecksums.h
 
 FORMS    += mainwindow.ui
+
+RESOURCES += \
+    icons.qrc
