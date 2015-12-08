@@ -29,8 +29,8 @@ int comparationStart(QString original, QString checked)
 
     else
     {
-       dialogStyle_info(QObject::tr("Risultati della comparazione"), QObject::tr("<b>I due valori non combaciano.</b><br/><br/>Originale: ") + original + QObject::tr("<br/>File analizzato: ") + checked + QObject::tr("<br/><br/>"
-                           "Utilizzare questo File potrebbe portare a risultati indesiderati: riscaricare il File se necessario fino a quando il controllo non riesce."));
+       dialogStyle_info(QObject::tr("Risultati della comparazione"), QObject::tr("<b>I due valori non combaciano.</b><br/><br/>Originale: %1<br/>File analizzato: %2<br/><br/>"
+                           "Utilizzare questo File potrebbe portare a risultati indesiderati: riscaricare il File se necessario fino a quando il controllo non riesce.").arg(original, checked));
     }
 
     return comparationSuccess;
