@@ -6,8 +6,8 @@
 #include <QDragEnterEvent>
 #include <QMimeData>
 #include <QUrl>
+#include "settingspage.h"
 #include <QDebug>
-
 #include "dialogstyle.h"
 #include "comparechecksums.h"
 
@@ -201,4 +201,10 @@ void MainWindow::on_SpeedSelect_currentIndexChanged(int index)
     QString IndexToString = QString::number(index);
     qDebug() << "Selected Speed : " + IndexToString;
 
+}
+
+void MainWindow::on_SettingButton_clicked()
+{
+    SettingsPage setting;
+    setting.exec();
 }

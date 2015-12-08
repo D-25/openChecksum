@@ -15,10 +15,13 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     dialogstyle.cpp \
-    comparechecksums.cpp
+    comparechecksums.cpp \
+    settingspage.cpp
 
 HEADERS  += mainwindow.h \
     dialogstyle.h \
-    comparechecksums.h
+    comparechecksums.h \
+    settingspage.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    settingspage.ui
