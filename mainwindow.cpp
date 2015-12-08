@@ -7,6 +7,7 @@
 #include <QMimeData>
 #include <QUrl>
 #include <QDebug>
+#include <QTranslator>
 
 #include "settingpage.h"
 #include "dialogstyle.h"
