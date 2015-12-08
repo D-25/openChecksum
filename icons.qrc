@@ -2,5 +2,9 @@
     <qresource prefix="/icons">
         <file alias="info">icons/16x16/info.png</file>
         <file alias="abort">icons/16x16/abort.png</file>
+        <file alias="language">icons/32x32/language.png</file>
+        <file alias="flag_italy">icons/flags/italy.png</file>
+        <file alias="flag_english">icons/flags/english.png</file>
+        <file alias="settings_advanced">icons/32x32/advancedsettings.png</file>
     </qresource>
 </RCC>
