@@ -162,6 +162,7 @@ void MainWindow::on_startCheck_clicked()
         QByteArray md5Data = checkProcess.result();
         QString md5DataHEX = md5Data.toHex();
 
+
         if (aborted == false)
         {
             ui->checkInfo->setText(tr("MD5 del File scelto: %1").arg(md5DataHEX));
