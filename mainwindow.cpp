@@ -131,6 +131,22 @@ void MainWindow::on_startCheck_clicked()
     QString fileName = ui->fileSelectLocation->text();
     QFile fileSelected(fileName);
 
+
+    // If user want to start checking between two MD5s, it start to check if the MD5 inputed
+    // follow the HEX-system. If not, checking won't start.
+    if (ui->comparationCheck->isChecked())
+    {
+        if (inputCheckHEX(ui->comparationString->text()) == 0)
+        {
+            dialogStyle_info(QObject::tr("Codice scorretto"), QObject::tr("<b>Il codice da verificare non va bene.</b><br/>Hai inserito il codice: %1<br/>"
+                                "Il codice inserito contiene caratteri non ammessi nel sistema esadecimale, oppure non soddisfa la lunghezza"
+                                " di 32 caratteri. Reinserire e controllare il codice.").arg(ui->comparationString->text()));
+
+            qDebug() << "Checking stopped due invalid MD5 inserted by user.";
+            return;
+        }
+    }
+
     int byteLoad = Speed; // TODO: more?
 
     QCryptographicHash checkProcess(QCryptographicHash::Md5);
