@@ -7,6 +7,7 @@
 #include <QMimeData>
 #include <QUrl>
 #include <QDebug>
+#include <QTranslator>
 
 #include "settingpage.h"
 #include "dialogstyle.h"
@@ -160,6 +161,7 @@ void MainWindow::on_startCheck_clicked()
         ui->abortButton->setVisible(false);
         QByteArray md5Data = checkProcess.result();
         QString md5DataHEX = md5Data.toHex();
+
 
         if (aborted == false)
         {

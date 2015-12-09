@@ -27,4 +27,8 @@ FORMS    += mainwindow.ui \
     settingpage.ui
 
 RESOURCES += \
-    icons.qrc
+    icons.qrc \
+    translation.qrc
+
+TRANSLATIONS += \
+    languages/lang_it.ts
