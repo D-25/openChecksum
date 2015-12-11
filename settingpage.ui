@@ -25,7 +25,7 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidgetU1">
    <property name="geometry">
     <rect>
      <x>10</x>
@@ -79,7 +79,7 @@
     </item>
    </layout>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidgetU2">
    <property name="geometry">
     <rect>
      <x>10</x>
@@ -120,7 +120,7 @@
     </item>
    </layout>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidgetU3">
    <property name="geometry">
     <rect>
      <x>10</x>
@@ -165,7 +165,7 @@
     </item>
    </layout>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidgetU4">
    <property name="geometry">
     <rect>
      <x>10</x>
@@ -194,11 +194,14 @@
        <iconset resource="icons.qrc">
         <normaloff>:/icons/info</normaloff>:/icons/info</iconset>
       </property>
+      <property name="arrowType">
+       <enum>Qt::NoArrow</enum>
+      </property>
      </widget>
     </item>
    </layout>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidgetU5">
    <property name="geometry">
     <rect>
      <x>10</x>
@@ -228,7 +231,7 @@
     </item>
    </layout>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidgetU6">
    <property name="geometry">
     <rect>
      <x>361</x>
