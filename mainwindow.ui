@@ -68,7 +68,7 @@
        <item>
         <widget class="QPushButton" name="pushButton">
          <property name="text">
-          <string/>
+          <string>IMPOSTAZIONI</string>
          </property>
         </widget>
        </item>
@@ -210,7 +210,7 @@
         </sizepolicy>
        </property>
        <property name="text">
-        <string>Velocità :</string>
+        <string>Velocità:</string>
        </property>
       </widget>
      </item>
@@ -248,7 +248,7 @@
      <item>
       <widget class="QCheckBox" name="comparationCheck">
        <property name="text">
-        <string>Compara con :</string>
+        <string>Compara con:</string>
        </property>
       </widget>
      </item>

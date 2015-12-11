@@ -7,20 +7,8 @@
     <x>0</x>
     <y>0</y>
     <width>526</width>
-    <height>240</height>
+    <height>239</height>
    </rect>
-  </property>
-  <property name="minimumSize">
-   <size>
-    <width>526</width>
-    <height>240</height>
-   </size>
-  </property>
-  <property name="maximumSize">
-   <size>
-    <width>526</width>
-    <height>240</height>
-   </size>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
@@ -44,7 +32,7 @@
        </sizepolicy>
       </property>
       <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/icons/language&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       <string notr="true">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/icons/language&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
       <property name="textFormat">
        <enum>Qt::AutoText</enum>
@@ -94,6 +82,9 @@
       <property name="text">
        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;La lingua viene scelta in maniera predefinita a seconda del linguaggio di sistema.&lt;br/&gt;Se comunque vuoi cambiare la lingua, seleziona quello che preferisci da questa lista.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
+      <property name="wordWrap">
+       <bool>true</bool>
+      </property>
      </widget>
     </item>
     <item>
@@ -139,7 +130,7 @@
        </sizepolicy>
       </property>
       <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/icons/settings_advanced&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       <string notr="true">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/icons/settings_advanced&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
      </widget>
     </item>
@@ -171,7 +162,7 @@
      <x>10</x>
      <y>150</y>
      <width>511</width>
-     <height>24</height>
+     <height>26</height>
     </rect>
    </property>
    <layout class="QHBoxLayout" name="horizontalLayout_3">
@@ -183,13 +174,83 @@
      </widget>
     </item>
     <item>
-     <widget class="QComboBox" name="combo_Bytecheck"/>
+     <widget class="QComboBox" name="combo_Bytecheck">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <property name="sizeAdjustPolicy">
+       <enum>QComboBox::AdjustToContents</enum>
+      </property>
+      <item>
+       <property name="text">
+        <string notr="true">512</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string notr="true">1024</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string notr="true">2048</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string notr="true">4096</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string notr="true">8192</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string notr="true">16384</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string notr="true">32768</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string notr="true">65536</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string notr="true">131072</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string notr="true">262144</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string notr="true">524288</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string notr="true">1048576</string>
+       </property>
+      </item>
+     </widget>
     </item>
     <item>
      <widget class="QToolButton" name="showInfo_byteCheck">
-      <property name="text">
-       <string>...</string>
-      </property>
       <property name="icon">
        <iconset resource="icons.qrc">
         <normaloff>:/icons/info</normaloff>:/icons/info</iconset>
@@ -220,9 +281,6 @@
     </item>
     <item>
      <widget class="QToolButton" name="info_freezeStatus">
-      <property name="text">
-       <string>...</string>
-      </property>
       <property name="icon">
        <iconset resource="icons.qrc">
         <normaloff>:/icons/info</normaloff>:/icons/info</iconset>
@@ -234,8 +292,8 @@
   <widget class="QWidget" name="layoutWidgetU6">
    <property name="geometry">
     <rect>
-     <x>361</x>
-     <y>211</y>
+     <x>360</x>
+     <y>210</y>
      <width>158</width>
      <height>25</height>
     </rect>
@@ -256,6 +314,19 @@
      </widget>
     </item>
    </layout>
+  </widget>
+  <widget class="Line" name="line">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>200</y>
+     <width>511</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Horizontal</enum>
+   </property>
   </widget>
  </widget>
  <resources>

@@ -57,19 +57,21 @@ MainWindow::~MainWindow()
 void MainWindow::disableAll()
 {
     ui->startCheck->setEnabled(false);
-    ui->fileSelectLabel->setEnabled(false);
+    ui->fileSelectLocation->setEnabled(false);
     ui->fileSelectBrowse->setEnabled(false);
     ui->comparationCheck->setEnabled(false);
     ui->comparationString->setEnabled(false);
+    ui->SpeedSelect->setEnabled(false);
 }
 
 void MainWindow::enableAll()
 {
     ui->startCheck->setEnabled(true);
-    ui->fileSelectLabel->setEnabled(true);
+    ui->fileSelectLocation->setEnabled(true);
     ui->fileSelectBrowse->setEnabled(true);
     ui->comparationCheck->setEnabled(true);
     ui->comparationString->setEnabled(true);
+    ui->SpeedSelect->setEnabled(true);
 }
 
 void MainWindow::dragEnterEvent(QDragEnterEvent *event)
@@ -100,6 +102,10 @@ void MainWindow::dropEvent(QDropEvent *event)
 
         droppedLocation.remove(QString("file:///")); // We need the file:/// prefix to mantain URL-style
                                                      // and block all unknown position.
+#if defined(linux) || defined(unix)
+        droppedLocation.insert(0, "/");
+        qDebug() << "*** Linux/Unix system detected: mantaining file system structure."
+#endif
 
         ui->fileSelectLocation->setText(droppedLocation);
         ui->startCheck->setEnabled(true);
