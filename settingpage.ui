@@ -7,8 +7,20 @@
     <x>0</x>
     <y>0</y>
     <width>526</width>
-    <height>239</height>
+    <height>250</height>
    </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>526</width>
+    <height>250</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>526</width>
+    <height>250</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
@@ -67,55 +79,11 @@
     </item>
    </layout>
   </widget>
-  <widget class="QWidget" name="layoutWidgetU2">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>50</y>
-     <width>511</width>
-     <height>56</height>
-    </rect>
-   </property>
-   <layout class="QVBoxLayout" name="verticalLayout">
-    <item>
-     <widget class="QLabel" name="sInfo_Language">
-      <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;La lingua viene scelta in maniera predefinita a seconda del linguaggio di sistema.&lt;br/&gt;Se comunque vuoi cambiare la lingua, seleziona quello che preferisci da questa lista.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-      <property name="wordWrap">
-       <bool>true</bool>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QComboBox" name="sCombo_Language">
-      <item>
-       <property name="text">
-        <string>Italiano (Italian)</string>
-       </property>
-       <property name="icon">
-        <iconset resource="icons.qrc">
-         <normaloff>:/icons/flag_italy</normaloff>:/icons/flag_italy</iconset>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Inglese (English)</string>
-       </property>
-       <property name="icon">
-        <iconset resource="icons.qrc">
-         <normaloff>:/icons/flag_english</normaloff>:/icons/flag_english</iconset>
-       </property>
-      </item>
-     </widget>
-    </item>
-   </layout>
-  </widget>
   <widget class="QWidget" name="layoutWidgetU3">
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>110</y>
+     <y>120</y>
      <width>511</width>
      <height>34</height>
     </rect>
@@ -160,7 +128,7 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>150</y>
+     <y>160</y>
      <width>511</width>
      <height>26</height>
     </rect>
@@ -182,7 +150,7 @@
        </sizepolicy>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>9</number>
       </property>
       <property name="sizeAdjustPolicy">
        <enum>QComboBox::AdjustToContents</enum>
@@ -251,6 +219,12 @@
     </item>
     <item>
      <widget class="QToolButton" name="showInfo_byteCheck">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
       <property name="icon">
        <iconset resource="icons.qrc">
         <normaloff>:/icons/info</normaloff>:/icons/info</iconset>
@@ -260,13 +234,30 @@
       </property>
      </widget>
     </item>
+    <item>
+     <widget class="QToolButton" name="reset_byteCheck">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="icon">
+       <iconset resource="icons.qrc">
+        <normaloff>:/icons/reset</normaloff>:/icons/reset</iconset>
+      </property>
+     </widget>
+    </item>
    </layout>
   </widget>
   <widget class="QWidget" name="layoutWidgetU5">
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>180</y>
+     <y>190</y>
      <width>511</width>
      <height>24</height>
     </rect>
@@ -275,15 +266,38 @@
     <item>
      <widget class="QCheckBox" name="check_freezeStatus">
       <property name="text">
-       <string>Fornisci lo stato IN PAUSA all'applicazione durante il controllo</string>
+       <string>Applica lo Status di congelamento durante l'analisi</string>
       </property>
      </widget>
     </item>
     <item>
      <widget class="QToolButton" name="info_freezeStatus">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
       <property name="icon">
        <iconset resource="icons.qrc">
         <normaloff>:/icons/info</normaloff>:/icons/info</iconset>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QToolButton" name="reset_freezeStatus">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="icon">
+       <iconset resource="icons.qrc">
+        <normaloff>:/icons/reset</normaloff>:/icons/reset</iconset>
       </property>
      </widget>
     </item>
@@ -293,7 +307,7 @@
    <property name="geometry">
     <rect>
      <x>360</x>
-     <y>210</y>
+     <y>220</y>
      <width>158</width>
      <height>25</height>
     </rect>
@@ -319,7 +333,7 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>200</y>
+     <y>210</y>
      <width>511</width>
      <height>16</height>
     </rect>
@@ -327,6 +341,80 @@
    <property name="orientation">
     <enum>Qt::Horizontal</enum>
    </property>
+  </widget>
+  <widget class="QWidget" name="">
+   <property name="geometry">
+    <rect>
+     <x>11</x>
+     <y>51</y>
+     <width>511</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QLabel" name="sInfo_Language">
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;La lingua viene scelta in maniera predefinita a seconda del linguaggio di sistema.&lt;br/&gt;Se comunque vuoi cambiare la lingua, seleziona quello che preferisci da questa lista.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+      <property name="wordWrap">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_6">
+      <item>
+       <widget class="QComboBox" name="sCombo_Language">
+        <item>
+         <property name="text">
+          <string>Rileva automaticamente (based of system settings)</string>
+         </property>
+         <property name="icon">
+          <iconset resource="icons.qrc">
+           <normaloff>:/icons/flag_unknown</normaloff>:/icons/flag_unknown</iconset>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Italiano (Italian)</string>
+         </property>
+         <property name="icon">
+          <iconset resource="icons.qrc">
+           <normaloff>:/icons/flag_italy</normaloff>:/icons/flag_italy</iconset>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Inglese (English)</string>
+         </property>
+         <property name="icon">
+          <iconset resource="icons.qrc">
+           <normaloff>:/icons/flag_english</normaloff>:/icons/flag_english</iconset>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item>
+       <widget class="QToolButton" name="reset_Language">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset resource="icons.qrc">
+          <normaloff>:/icons/reset</normaloff>:/icons/reset</iconset>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
   </widget>
  </widget>
  <resources>

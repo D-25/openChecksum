@@ -8,6 +8,7 @@
 #include <QUrl>
 #include <QDebug>
 #include <QTranslator>
+#include <QSettings>
 
 #include "settingpage.h"
 #include "dialogstyle.h"
@@ -32,14 +33,6 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    //populating the speeds' combobox
-    ui->SpeedSelect->addItem("Lento");
-    ui->SpeedSelect->addItem("Medio (Default)");
-    ui->SpeedSelect->addItem("Veloce");
-
-    //setting first combobox's value (default)
-    ui->SpeedSelect->setCurrentIndex(1);
-
     ui->checkingBar->setVisible(false);
     ui->abortButton->setVisible(false);
 
@@ -61,7 +54,6 @@ void MainWindow::disableAll()
     ui->fileSelectBrowse->setEnabled(false);
     ui->comparationCheck->setEnabled(false);
     ui->comparationString->setEnabled(false);
-    ui->SpeedSelect->setEnabled(false);
 }
 
 void MainWindow::enableAll()
@@ -71,7 +63,6 @@ void MainWindow::enableAll()
     ui->fileSelectBrowse->setEnabled(true);
     ui->comparationCheck->setEnabled(true);
     ui->comparationString->setEnabled(true);
-    ui->SpeedSelect->setEnabled(true);
 }
 
 void MainWindow::dragEnterEvent(QDragEnterEvent *event)
@@ -104,7 +95,7 @@ void MainWindow::dropEvent(QDropEvent *event)
                                                      // and block all unknown position.
 #if defined(linux) || defined(unix)
         droppedLocation.insert(0, "/");
-        qDebug() << "*** Linux/Unix system detected: mantaining file system structure."
+        qDebug() << "*** Linux/Unix system detected: mantaining file system structure.";
 #endif
 
         ui->fileSelectLocation->setText(droppedLocation);
@@ -134,6 +125,14 @@ void MainWindow::on_startCheck_clicked()
     // Select file, initialize the byteload and start processing the file, disabling the main window for security purpose.
     // Reached the ending of file, the checksum is showed to user.
 
+    QSettings settings("D-25" ,"MD5Checker");
+
+    int byteCheckSelected = settings.value("byteCheck", 262144).toInt();
+    bool getFrozenStatus = settings.value("applyFrozenStatus", 0).toBool();
+
+    qDebug() << "Settings loaded: " << "byteCheckSelected..." << byteCheckSelected << "getFrozenStatus..." << getFrozenStatus;
+
+
     QString fileName = ui->fileSelectLocation->text();
     QFile fileSelected(fileName);
 
@@ -153,7 +152,17 @@ void MainWindow::on_startCheck_clicked()
         }
     }
 
-    int byteLoad = Speed; // TODO: more?
+    if (getFrozenStatus == true)
+    {
+        if(dialogStyle_question(tr("Status di congelamento"), tr("L'applicazione verrà segnalata come <b>NON RISPONDE</b> dal sistema. Non chiudere il processo.<br/><br/>"
+                                                                 "Vuoi continuare? Potrebbe richiedere parecchio tempo, a seconda della dimensione del File.<br/><br/>"
+                                                                 "Puoi disabilitare questa funzione nelle Impostazioni."), tr("Si, continua"), tr("No, annulla")) == 0)
+        {
+            ui->checkInfo->setText(tr("Operazione annullata dall'utente."));
+            qDebug() << "Operation aborted by user.";
+            return;
+        }
+    }
 
     QCryptographicHash checkProcess(QCryptographicHash::Md5);
 
@@ -161,8 +170,8 @@ void MainWindow::on_startCheck_clicked()
         aborted = false;
         while(!fileSelected.atEnd())
         {
-            checkProcess.addData(fileSelected.read(byteLoad));
-            QCoreApplication::processEvents();
+            checkProcess.addData(fileSelected.read(byteCheckSelected));
+            if (getFrozenStatus == false) { QCoreApplication::processEvents(); }
             ui->checkInfo->setText(tr("Analisi dell'impronta del file selezionato in corso..."));
 
             ui->checkingBar->setVisible(true);
@@ -205,26 +214,6 @@ void MainWindow::on_startCheck_clicked()
 void MainWindow::on_abortButton_clicked()
 {
     aborted = true;
-}
-
-void MainWindow::on_SpeedSelect_currentIndexChanged(int index)
-{
-    switch(index){
-    case 0:
-        Speed = 4096;         //slow
-        break;
-
-    case 1:
-        Speed = 262144;         //default
-        break;
-
-    case 2:
-        Speed = 524288;         //speedy
-        break;
-    }
-
-    qDebug() << "Selected Speed : " << Speed;
-
 }
 
 void MainWindow::on_pushButton_clicked()
