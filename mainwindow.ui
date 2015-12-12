@@ -260,7 +260,6 @@
     </property>
     <addaction name="action_About"/>
     <addaction name="separator"/>
-    <addaction name="action_CheckUpdate"/>
     <addaction name="action_Github"/>
     <addaction name="action_Sourceforge"/>
     <addaction name="separator"/>

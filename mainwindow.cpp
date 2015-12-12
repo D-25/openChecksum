@@ -9,6 +9,7 @@
 #include <QDebug>
 #include <QTranslator>
 #include <QSettings>
+#include <QTime>
 
 #include "settingpage.h"
 #include "dialogstyle.h"
@@ -145,6 +146,7 @@ void MainWindow::on_startCheck_clicked()
     // If you have a better method, let me know on GitHub.
 
     QSettings settings("D-25" ,"MD5Checker");
+    QTime timeCount;
 
     int byteCheckSelected = settings.value("byteCheck", 262144).toInt();
     bool getFrozenStatus = settings.value("applyFrozenStatus", 0).toBool();
@@ -185,6 +187,7 @@ void MainWindow::on_startCheck_clicked()
 
     QCryptographicHash checkProcess(QCryptographicHash::Md5);
 
+        timeCount.start();
         fileSelected.open(QFile::ReadOnly);
 
         aborted = false;
@@ -192,7 +195,7 @@ void MainWindow::on_startCheck_clicked()
         {
             checkProcess.addData(fileSelected.read(byteCheckSelected));
             if (getFrozenStatus == false) { QCoreApplication::processEvents(); }
-            ui->checkInfo->setText(tr("Analisi dell'impronta del file selezionato in corso..."));
+            ui->checkInfo->setText(tr("Analisi del file selezionato in corso..."));
 
             ui->checkingBar->setVisible(true);
             ui->abortButton->setVisible(true);
@@ -216,9 +219,25 @@ void MainWindow::on_startCheck_clicked()
 
         if (aborted == false)
         {
+            qDebug() << "Checking done! Time Elapsed (ms): " << timeCount.elapsed();
+            int timeSecond = timeCount.elapsed() / 1000;
+            int timeMinute = (timeSecond / 60) % 60;
+            int timeHour = timeSecond / 3600;
+            timeSecond = timeSecond % 60;
+
+            QString timeString = (QString("%1:%2:%3")
+                                .arg(timeHour, 2, 10, QLatin1Char('0'))
+                                .arg(timeMinute, 2, 10, QLatin1Char('0'))
+                                .arg(timeSecond, 2, 10, QLatin1Char('0')));
+
+            if (timeString == "00:00:00")
+            {
+                timeString = tr("meno di un secondo");
+            }
+
             if (checkAndCompare == false)
             {
-                ui->checkInfo->setText(tr("MD5 del File scelto: %1").arg(md5DataHEX));
+                ui->checkInfo->setText(tr("<b>MD5 del File scelto:</b> %1<br/><b>Tempo trascorso:</b> %2").arg(md5DataHEX, timeString));
 
                 if (ui->comparationCheck->isChecked())
                 {
