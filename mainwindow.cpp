@@ -25,6 +25,10 @@
  */
 
 bool aborted; // I know, this is ugly.
+
+bool checkAndCompare;
+QString fileNameCompare;
+
 int Speed = 262144;
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -54,6 +58,7 @@ void MainWindow::disableAll()
     ui->fileSelectBrowse->setEnabled(false);
     ui->comparationCheck->setEnabled(false);
     ui->comparationString->setEnabled(false);
+    ui->menuBar->setEnabled(false);
 }
 
 void MainWindow::enableAll()
@@ -63,6 +68,7 @@ void MainWindow::enableAll()
     ui->fileSelectBrowse->setEnabled(true);
     ui->comparationCheck->setEnabled(true);
     ui->comparationString->setEnabled(true);
+    ui->menuBar->setEnabled(true);
 }
 
 void MainWindow::dragEnterEvent(QDragEnterEvent *event)
@@ -93,7 +99,7 @@ void MainWindow::dropEvent(QDropEvent *event)
 
         droppedLocation.remove(QString("file:///")); // We need the file:/// prefix to mantain URL-style
                                                      // and block all unknown position.
-#if defined(linux) || defined(unix)
+#if defined(linux) || defined(unix) // On Linux/Unix system add '/' to mantain file system structure. It works on Mac?
         droppedLocation.insert(0, "/");
         qDebug() << "*** Linux/Unix system detected: mantaining file system structure.";
 #endif
@@ -109,11 +115,20 @@ void MainWindow::on_fileSelectBrowse_clicked()
 
     QString stringFileName = QFileDialog::getOpenFileName(this, tr("Apri"), "", tr("Tutti (*.*)"));
     if (stringFileName.isNull() || stringFileName.isEmpty())
-    { }
+    {
+        if (checkAndCompare == true) { checkAndCompare = false; } // Make global value deactivated, so Comparation Mode won't start.
+    }
+
     else
     {
         ui->startCheck->setEnabled(true);
-        ui->fileSelectLocation->setText(stringFileName);
+        ui->action_Check->setEnabled(true);
+        if (checkAndCompare == false) { ui->fileSelectLocation->setText(stringFileName); }
+        else
+        {
+            fileNameCompare = stringFileName; // Using global value.
+            on_startCheck_clicked();
+        }
     }
 }
 
@@ -125,17 +140,21 @@ void MainWindow::on_startCheck_clicked()
     // Select file, initialize the byteload and start processing the file, disabling the main window for security purpose.
     // Reached the ending of file, the checksum is showed to user.
 
+    // Please note we use checkAndCompare boolean global value for the function inside the 'File' menu.
+    // I can't make a function with variables because QT uses a closed system with signal slots, so I use this workaround.
+    // If you have a better method, let me know on GitHub.
+
     QSettings settings("D-25" ,"MD5Checker");
 
     int byteCheckSelected = settings.value("byteCheck", 262144).toInt();
     bool getFrozenStatus = settings.value("applyFrozenStatus", 0).toBool();
 
     qDebug() << "Settings loaded: " << "byteCheckSelected..." << byteCheckSelected << "getFrozenStatus..." << getFrozenStatus;
-
-
     QString fileName = ui->fileSelectLocation->text();
-    QFile fileSelected(fileName);
 
+    if (checkAndCompare == true) { fileName = fileNameCompare; qDebug() << "*** STARTING COMPARATION MODE ***"; }
+
+    QFile fileSelected(fileName);
 
     // If user want to start checking between two MD5s, it start to check if the MD5 inputed
     // follow the HEX-system. If not, checking won't start.
@@ -167,6 +186,7 @@ void MainWindow::on_startCheck_clicked()
     QCryptographicHash checkProcess(QCryptographicHash::Md5);
 
         fileSelected.open(QFile::ReadOnly);
+
         aborted = false;
         while(!fileSelected.atEnd())
         {
@@ -196,17 +216,38 @@ void MainWindow::on_startCheck_clicked()
 
         if (aborted == false)
         {
-            ui->checkInfo->setText(tr("MD5 del File scelto: %1").arg(md5DataHEX));
-
-            if (ui->comparationCheck->isChecked())
+            if (checkAndCompare == false)
             {
-                comparationStart(ui->comparationString->text(), md5DataHEX); // Check between two string, one inserted by user.
+                ui->checkInfo->setText(tr("MD5 del File scelto: %1").arg(md5DataHEX));
+
+                if (ui->comparationCheck->isChecked())
+                {
+                    comparationStart(ui->comparationString->text(), md5DataHEX); // Check between two string, one inserted by user.
+                }
+            }
+
+            else // COMPARATION MODE
+            {
+                ui->checkInfo->setText(tr("MD5 del File da comparare calcolato. Adesso scegli il File da comparare e avvia l'analisi."));
+
+                if (ui->fileSelectLocation->text().isNull() || ui->fileSelectLocation->text().isEmpty()) // Check if a File is selected,
+                                                                                                         // to make enabled START CHECK buttons.
+                {
+                    ui->startCheck->setEnabled(false);
+                    ui->action_Check->setEnabled(false);
+                }
+
+                ui->comparationCheck->setChecked(true);
+                ui->comparationString->setText(md5DataHEX);
+
+                checkAndCompare = false;
             }
         }
 
-        else
+        else // ABORTED
         {
                 ui->checkInfo->setText(tr("Operazione annullata dall'utente."));
+                if (checkAndCompare == true) { checkAndCompare = false; } // Make global value deactivated, so Comparation Mode won't start next time.
         }
 
         }
@@ -216,8 +257,26 @@ void MainWindow::on_abortButton_clicked()
     aborted = true;
 }
 
-void MainWindow::on_pushButton_clicked()
+// MENU BAR
+
+void MainWindow::on_action_Settings_triggered() // SETTINGS
 {
     SettingPage settings;
     settings.exec();
+}
+
+void MainWindow::on_action_Open_triggered() // OPEN (recall Browse button)
+{
+    on_fileSelectBrowse_clicked();
+}
+
+void MainWindow::on_action_Check_triggered() // CHECK (recall Start Check button)
+{
+    on_startCheck_clicked();
+}
+
+void MainWindow::on_action_OpenCompare_triggered() // Open & Compare (set TRUE the global value, then recall Browse button)
+{
+    checkAndCompare = true;
+    on_fileSelectBrowse_clicked();
 }

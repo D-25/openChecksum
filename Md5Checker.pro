@@ -31,3 +31,4 @@ RESOURCES += \
 
 TRANSLATIONS += \
     languages/lang_it.ts
+    languages/lang_en.ts

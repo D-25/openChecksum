@@ -25,7 +25,13 @@ private slots:
     void disableAll();
     void enableAll();
 
-    void on_pushButton_clicked();
+    void on_action_Settings_triggered();
+
+    void on_action_Open_triggered();
+
+    void on_action_Check_triggered();
+
+    void on_action_OpenCompare_triggered();
 
 private:
     Ui::MainWindow *ui;
