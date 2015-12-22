@@ -118,26 +118,8 @@
       <layout class="QHBoxLayout" name="horizontalLayout_3">
        <item>
         <widget class="QProgressBar" name="checkingBar">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="autoFillBackground">
-          <bool>false</bool>
-         </property>
-         <property name="maximum">
-          <number>100</number>
-         </property>
          <property name="value">
-          <number>50</number>
-         </property>
-         <property name="textVisible">
-          <bool>false</bool>
-         </property>
-         <property name="invertedAppearance">
-          <bool>false</bool>
+          <number>24</number>
          </property>
         </widget>
        </item>

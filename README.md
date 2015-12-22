@@ -19,5 +19,5 @@ You can compile this project easily: clone this project and run `qmake Md5Checke
 
 ### Known Bugs
 We must fix these in order to publish first release.
-- [ ] ProgressBar glitch if a big file was selected.
+- No bugs found? Okay.
 - Do you have found a new bug? Tell us in ISSUES tab.
