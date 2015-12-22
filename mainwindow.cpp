@@ -190,10 +190,18 @@ void MainWindow::on_startCheck_clicked()
         timeCount.start();
         fileSelected.open(QFile::ReadOnly);
 
+        ui->checkingBar->setValue(0);
+        ui->checkingBar->setMaximum(fileSelected.size()); // TODO: big files overflow progressbar! To fix!!
+                                                          // Easy fix is to make it (size/2) and approximate (x.y) number.
+                                                          // The question is... how..?
+
         aborted = false;
         while(!fileSelected.atEnd())
         {
             checkProcess.addData(fileSelected.read(byteCheckSelected));
+            ui->checkingBar->setValue(ui->checkingBar->value() + byteCheckSelected);
+            qDebug() << "Checked... " << ui->checkingBar->value() << " of " << fileSelected.size(); // TODO: show in Information box with KB-MB-GB sizes.
+
             if (getFrozenStatus == false) { QCoreApplication::processEvents(); }
             ui->checkInfo->setText(tr("Analisi del file selezionato in corso..."));
 
