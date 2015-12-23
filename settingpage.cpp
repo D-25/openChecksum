@@ -87,7 +87,8 @@ void SettingPage::on_showInfo_byteCheck_clicked()
                                                   "<li>Se invece selezioni un numero troppo alto, l'analisi richiederà meno tempo, ma verranno utilizzate più risorse. Non tutti i Computer potrebbero supportare un elevato numero di byte.</li>"
                                                   "<li>L'opzione di Default offre un buon mix tra affidabilità e velocità.</li>"
                                                   "<li>Generalmente ti accorgerai della differenza solo se analizzi file di grandi dimensioni.</li>"
-                                                  "<li>Se il tuo Computer è lento, aumentare il numero di Byte potrebbe aumentare anche il tempo o portare addirittura al blocco del programma.</li></ul>"));
+                                                  "<li>Se il tuo Computer è lento, aumentare il numero di Byte potrebbe aumentare anche il tempo o portare addirittura al blocco del programma.</li>"
+                                                  "<li>CPU e velocità dell'Hard Disk influiscono sulla velocità del processo. Ad esempio, un blocco grande con un sistema scarso potrebbe influire negativamente sulla reattività del programma e quindi dell'analisi stessa.</ul>"));
 }
 
 void SettingPage::on_info_freezeStatus_clicked()

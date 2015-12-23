@@ -196,7 +196,6 @@ void MainWindow::on_startCheck_clicked()
 
         taskbarButton = new QWinTaskbarButton(this);
         taskbarButton->setWindow(this->windowHandle());
-        //taskbarButton->setOverlayIcon(QIcon(":/overlay"));
 
         taskbarProgress = taskbarButton->progress();
         taskbarProgress->setVisible(true);
@@ -219,12 +218,13 @@ void MainWindow::on_startCheck_clicked()
             checkProcess.addData(fileSelected.read(byteCheckSelected));
             byteReaden = byteReaden + byteCheckSelected; // Byte Readen by application is based of current byteCheckSelected.
 
+            int byteReadenPerCent = (byteReaden * 100) / fileSize;
             int byteReadenKB = byteReaden / 1024;
             int byteReadenMB = byteReadenKB / 1024;
             int byteReadenGB = byteReadenMB / 1024;
 
-            ui->checkingBar->setValue((int)((byteReaden * 100) / fileSize)); // All numbers is converted for maximum 100%.
-            taskbarProgress->setValue((int)((byteReaden * 100) / fileSize));
+            ui->checkingBar->setValue(byteReadenPerCent); // All numbers is converted for maximum 100%.
+            taskbarProgress->setValue(byteReadenPerCent);
             taskbarProgress->show();
 
             if (getFrozenStatus == false) { QCoreApplication::processEvents(); }
