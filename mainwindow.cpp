@@ -195,16 +195,42 @@ void MainWindow::on_startCheck_clicked()
         qint64 byteReaden = 0;
         qint64 fileSize = fileSelected.size();
 
+        int fileSizeKB = fileSize / 1024;
+        int fileSizeMB = fileSizeKB / 1024;
+        int fileSizeGB = fileSizeMB / 1024;
+
+        QString checkText1 = tr("Analisi del File selezionato in corso...");
+        QString checkText2 = tr("Dati analizzati");
+
         aborted = false;
         while(!fileSelected.atEnd())
         {
             checkProcess.addData(fileSelected.read(byteCheckSelected));
             byteReaden = byteReaden + byteCheckSelected; // Byte Readen by application is based of current byteCheckSelected.
+
+            int byteReadenKB = byteReaden / 1024;
+            int byteReadenMB = byteReadenKB / 1024;
+            int byteReadenGB = byteReadenMB / 1024;
+
             ui->checkingBar->setValue((int)((byteReaden * 100) / fileSize)); // All numbers is converted for maximum 100%.
-            // TODO: show in Information box readed/total with KB-MB-GB size.
 
             if (getFrozenStatus == false) { QCoreApplication::processEvents(); }
-            ui->checkInfo->setText(tr("Analisi del file selezionato in corso..."));
+
+            if (fileSizeMB < 10) // Show in Kilobyte
+            {
+
+                ui->checkInfo->setText(tr("%1<br/> <b>%2:</b> %3 KB su %4 KB").arg(checkText1).arg(checkText2).arg(byteReadenKB).arg(fileSizeKB));
+            }
+
+            else if (fileSizeGB < 2) // Show in Megabyte
+            {
+                ui->checkInfo->setText(tr("%1<br/> <b>%2:</b> %3 MB su %4 MB").arg(checkText1).arg(checkText2).arg(byteReadenMB).arg(fileSizeMB));
+            }
+
+            else // Show Megabyte + Gigabyte
+            {
+                ui->checkInfo->setText(tr("%1<br/> <b>%2:</b> %3 MB (%4 GB) su %5 MB (%6 GB)").arg(checkText1).arg(checkText2).arg(byteReadenMB).arg(byteReadenGB).arg(fileSizeMB).arg(fileSizeGB));
+            }
 
             ui->checkingBar->setVisible(true);
             ui->abortButton->setVisible(true);
