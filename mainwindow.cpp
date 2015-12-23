@@ -3,6 +3,8 @@
 #include <QFileDialog>
 #include <QCryptographicHash>
 #include <QFile>
+#include <QtWinExtras/QWinTaskbarButton>
+#include <QtWinExtras/QWinTaskbarProgress>
 #include <QDragEnterEvent>
 #include <QMimeData>
 #include <QUrl>
@@ -192,6 +194,15 @@ void MainWindow::on_startCheck_clicked()
 
         ui->checkingBar->setMaximum(100);
 
+        taskbarButton = new QWinTaskbarButton(this);
+        taskbarButton->setWindow(this->windowHandle());
+        //taskbarButton->setOverlayIcon(QIcon(":/overlay"));
+
+        taskbarProgress = taskbarButton->progress();
+        taskbarProgress->setVisible(true);
+        taskbarProgress->setMaximum(100);
+
+
         qint64 byteReaden = 0;
         qint64 fileSize = fileSelected.size();
 
@@ -213,6 +224,8 @@ void MainWindow::on_startCheck_clicked()
             int byteReadenGB = byteReadenMB / 1024;
 
             ui->checkingBar->setValue((int)((byteReaden * 100) / fileSize)); // All numbers is converted for maximum 100%.
+            taskbarProgress->setValue((int)((byteReaden * 100) / fileSize));
+            taskbarProgress->show();
 
             if (getFrozenStatus == false) { QCoreApplication::processEvents(); }
 
@@ -246,6 +259,7 @@ void MainWindow::on_startCheck_clicked()
 
         enableAll();
 
+        taskbarProgress->setValue(0);
         ui->checkingBar->setVisible(false);
         ui->abortButton->setVisible(false);
         QByteArray md5Data = checkProcess.result();
