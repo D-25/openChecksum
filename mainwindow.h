@@ -2,8 +2,11 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QtWinExtras/QWinTaskbarButton>
-#include <QtWinExtras/QWinTaskbarProgress>
+
+#ifdef Q_OS_WIN32
+    #include <QtWinExtras/QWinTaskbarButton>
+    #include <QtWinExtras/QWinTaskbarProgress>
+#endif
 
 namespace Ui {
 class MainWindow;
