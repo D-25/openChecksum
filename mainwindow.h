@@ -37,8 +37,11 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+
+#ifdef Q_OS_WIN32
     QWinTaskbarButton *taskbarButton;
     QWinTaskbarProgress *taskbarProgress;
+#endif
 
 protected:
     void dragEnterEvent(QDragEnterEvent *event);

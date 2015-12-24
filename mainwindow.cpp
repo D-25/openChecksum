@@ -3,8 +3,10 @@
 #include <QFileDialog>
 #include <QCryptographicHash>
 #include <QFile>
-#include <QtWinExtras/QWinTaskbarButton>
-#include <QtWinExtras/QWinTaskbarProgress>
+#ifdef Q_OS_WIN32
+    #include <QtWinExtras/QWinTaskbarButton>
+    #include <QtWinExtras/QWinTaskbarProgress>
+#endif
 #include <QDragEnterEvent>
 #include <QMimeData>
 #include <QUrl>
@@ -194,12 +196,14 @@ void MainWindow::on_startCheck_clicked()
 
         ui->checkingBar->setMaximum(100);
 
+#ifdef Q_OS_WIN32
         taskbarButton = new QWinTaskbarButton(this);
         taskbarButton->setWindow(this->windowHandle());
 
         taskbarProgress = taskbarButton->progress();
         taskbarProgress->setVisible(true);
         taskbarProgress->setMaximum(100);
+#endif
 
 
         qint64 byteReaden = 0;
@@ -224,8 +228,10 @@ void MainWindow::on_startCheck_clicked()
             int byteReadenGB = byteReadenMB / 1024;
 
             ui->checkingBar->setValue(byteReadenPerCent); // All numbers is converted for maximum 100%.
+#ifdef Q_OS_WIN32
             taskbarProgress->setValue(byteReadenPerCent);
             taskbarProgress->show();
+#endif
 
             if (getFrozenStatus == false) { QCoreApplication::processEvents(); }
 
@@ -259,7 +265,9 @@ void MainWindow::on_startCheck_clicked()
 
         enableAll();
 
+#ifdef Q_OS_WIN32
         taskbarProgress->setValue(0);
+#endif
         ui->checkingBar->setVisible(false);
         ui->abortButton->setVisible(false);
         QByteArray md5Data = checkProcess.result();
