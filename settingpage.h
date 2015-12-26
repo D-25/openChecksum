@@ -34,6 +34,14 @@ private slots:
 
     void on_reset_freezeStatus_clicked();
 
+    void on_showInfo_saveLastFile_clicked();
+
+    void on_showInfo_resetStatistics_clicked();
+
+    void on_reset_SaveLastFile_clicked();
+
+    void on_button_resetStatistics_clicked();
+
 private:
     Ui::SettingPage *ui;
 };

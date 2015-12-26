@@ -7,19 +7,19 @@
     <x>0</x>
     <y>0</y>
     <width>526</width>
-    <height>250</height>
+    <height>390</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
     <width>526</width>
-    <height>250</height>
+    <height>390</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
     <width>526</width>
-    <height>250</height>
+    <height>390</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -83,7 +83,7 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>120</y>
+     <y>260</y>
      <width>511</width>
      <height>34</height>
     </rect>
@@ -128,7 +128,7 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>160</y>
+     <y>300</y>
      <width>511</width>
      <height>26</height>
     </rect>
@@ -257,7 +257,7 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>190</y>
+     <y>330</y>
      <width>511</width>
      <height>24</height>
     </rect>
@@ -307,7 +307,7 @@
    <property name="geometry">
     <rect>
      <x>360</x>
-     <y>220</y>
+     <y>360</y>
      <width>158</width>
      <height>25</height>
     </rect>
@@ -333,7 +333,7 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>210</y>
+     <y>350</y>
      <width>511</width>
      <height>16</height>
     </rect>
@@ -342,7 +342,7 @@
     <enum>Qt::Horizontal</enum>
    </property>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>11</x>
@@ -409,6 +409,125 @@
         <property name="icon">
          <iconset resource="icons.qrc">
           <normaloff>:/icons/reset</normaloff>:/icons/reset</iconset>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>120</y>
+     <width>511</width>
+     <height>34</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout_7">
+    <item>
+     <widget class="QLabel" name="sIcon_Statistics">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/icons/settings_statistics&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="sLabel_Statistics">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;Statistiche&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="Line" name="sLI_Statistics">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>160</y>
+     <width>511</width>
+     <height>91</height>
+    </rect>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout_2">
+    <item>
+     <widget class="QLabel" name="sInfo_Statistics">
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Le statistiche vengono salvate automaticamente alla fine di ogni analisi.&lt;br/&gt;Le trovi nella finestra principale, nel menù &lt;span style=&quot; font-weight:600;&quot;&gt;?&lt;/span&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+      <property name="wordWrap">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_8">
+      <item>
+       <widget class="QCheckBox" name="check_saveLastFile">
+        <property name="text">
+         <string>Mostra l'ultimo file analizzato nelle Statistiche</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QToolButton" name="showInfo_saveLastFile">
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset resource="icons.qrc">
+          <normaloff>:/icons/info</normaloff>:/icons/info</iconset>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QToolButton" name="reset_SaveLastFile">
+        <property name="icon">
+         <iconset resource="icons.qrc">
+          <normaloff>:/icons/reset</normaloff>:/icons/reset</iconset>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_9">
+      <item>
+       <widget class="QPushButton" name="button_resetStatistics">
+        <property name="text">
+         <string>Resetta le statistiche</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QToolButton" name="showInfo_resetStatistics">
+        <property name="icon">
+         <iconset resource="icons.qrc">
+          <normaloff>:/icons/info</normaloff>:/icons/info</iconset>
         </property>
        </widget>
       </item>

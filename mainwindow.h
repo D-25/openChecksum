@@ -29,6 +29,7 @@ private slots:
 
     void disableAll();
     void enableAll();
+    void loadStatistics();
 
     void on_action_Settings_triggered();
 
@@ -37,6 +38,10 @@ private slots:
     void on_action_Check_triggered();
 
     void on_action_OpenCompare_triggered();
+
+    void on_action_Exit_triggered();
+
+    void on_action_Statistics_triggered();
 
 private:
     Ui::MainWindow *ui;

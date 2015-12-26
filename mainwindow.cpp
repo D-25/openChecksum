@@ -34,6 +34,13 @@ bool aborted; // I know, this is ugly.
 bool checkAndCompare;
 QString fileNameCompare;
 
+int statistic_checkCounter;
+int statistic_checkEnded;
+int statistic_checkAborted;
+//qint64 statistic_totalTime;
+//qint64 statistic_totalData;
+QString statistic_lastFile;
+
 int Speed = 262144;
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -44,6 +51,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->checkingBar->setVisible(false);
     ui->abortButton->setVisible(false);
+
+    loadStatistics();
+    this->setWindowTitle(tr("%1 %2").arg(QApplication::applicationName()).arg(QApplication::applicationVersion()));
 
     setAcceptDrops(true);
 }
@@ -74,6 +84,18 @@ void MainWindow::enableAll()
     ui->comparationCheck->setEnabled(true);
     ui->comparationString->setEnabled(true);
     ui->menuBar->setEnabled(true);
+}
+
+void MainWindow::loadStatistics()
+{
+    QSettings settings("D-25" ,"MD5Checker");
+    statistic_checkCounter = settings.value("statistics/checkCounter", 0).toInt();
+    statistic_checkEnded = settings.value("statistics/checkEnded", 0).toInt();
+    statistic_checkAborted = settings.value("statistics/checkAborted", 0).toInt();
+    //statistic_totalTime = settings.value("statistics/totalTime", 0);
+    //statistic_totalData = settings.value("statistics/totalData", 0);
+    statistic_lastFile = settings.value("statistics/lastFile", tr("Nessun file ancora analizzato.")).toString();
+    qDebug() << "Statistics loaded!";
 }
 
 void MainWindow::dragEnterEvent(QDragEnterEvent *event)
@@ -154,8 +176,10 @@ void MainWindow::on_startCheck_clicked()
 
     int byteCheckSelected = settings.value("byteCheck", 262144).toInt();
     bool getFrozenStatus = settings.value("applyFrozenStatus", 0).toBool();
+    bool showLastFile = settings.value("saveLastFile", 1).toBool();
 
-    qDebug() << "Settings loaded: " << "byteCheckSelected..." << byteCheckSelected << "getFrozenStatus..." << getFrozenStatus;
+    qDebug() << "Settings loaded: " << "byteCheckSelected..." << byteCheckSelected << "getFrozenStatus..." << getFrozenStatus << "showLastFile..." << showLastFile;
+
     QString fileName = ui->fileSelectLocation->text();
 
     if (checkAndCompare == true) { fileName = fileNameCompare; qDebug() << "*** STARTING COMPARATION MODE ***"; }
@@ -193,6 +217,8 @@ void MainWindow::on_startCheck_clicked()
 
         timeCount.start();
         fileSelected.open(QFile::ReadOnly);
+        statistic_checkCounter++;
+        statistic_lastFile = fileName;
 
         ui->checkingBar->setMaximum(100);
 
@@ -265,6 +291,7 @@ void MainWindow::on_startCheck_clicked()
 
         enableAll();
 
+
 #ifdef Q_OS_WIN32
         taskbarProgress->setValue(0);
 #endif
@@ -300,6 +327,8 @@ void MainWindow::on_startCheck_clicked()
                 {
                     comparationStart(ui->comparationString->text(), md5DataHEX); // Check between two string, one inserted by user.
                 }
+
+                statistic_checkEnded++;
             }
 
             else // COMPARATION MODE
@@ -317,16 +346,23 @@ void MainWindow::on_startCheck_clicked()
                 ui->comparationString->setText(md5DataHEX);
 
                 checkAndCompare = false;
+                statistic_checkEnded++;
             }
         }
 
         else // ABORTED
         {
                 ui->checkInfo->setText(tr("Operazione annullata dall'utente."));
+                statistic_checkAborted++;
                 if (checkAndCompare == true) { checkAndCompare = false; } // Make global value deactivated, so Comparation Mode won't start next time.
         }
 
-        }
+        settings.setValue("statistics/checkCounter", statistic_checkCounter);
+        settings.setValue("statistics/checkEnded", statistic_checkEnded);
+        settings.setValue("statistics/checkAborted", statistic_checkAborted);
+        if (showLastFile == true) { settings.setValue("statistics/lastFile", statistic_lastFile); }
+        qDebug() << "Statistics updated!";
+}
 
 void MainWindow::on_abortButton_clicked()
 {
@@ -355,4 +391,39 @@ void MainWindow::on_action_OpenCompare_triggered() // Open & Compare (set TRUE t
 {
     checkAndCompare = true;
     on_fileSelectBrowse_clicked();
+}
+
+void MainWindow::on_action_Exit_triggered()
+{
+    QApplication::quit();
+}
+
+void MainWindow::on_action_Statistics_triggered()
+{
+    QSettings settings("D-25" ,"MD5Checker");
+    bool showLastFile = settings.value("saveLastFile", 1).toBool();
+
+    loadStatistics();
+    QString lastFile;
+
+    if (showLastFile == false)
+    {
+        lastFile = tr("<i>Funzione disabilitata nelle impostazioni.</i>");
+    }
+
+    else
+    {
+        lastFile = statistic_lastFile;
+    }
+
+
+
+    dialogStyle_info(ui->action_Statistics->text().remove("&"), tr("<br/><b>Analisi iniziate: </b> %1<br/>"
+                                                                   "<b>Analisi terminate: </b> %2<br/>"
+                                                                   "<b>Analisi interrotte: </b> %3"
+                                                                   "<hr>"
+                                                                   "<b>Tempo totale di analisi: </b> %4<br/>"
+                                                                   "<b>Dimensione totale file analizzati: </b> %5"
+                                                                   "<hr>"
+                                                                   "<b>Ultimo file analizzato: </b> %6<br/>").arg(QString::number(statistic_checkCounter), QString::number(statistic_checkEnded), QString::number(statistic_checkAborted), "TODO!", "TODO!!", lastFile));
 }

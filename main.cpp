@@ -8,6 +8,12 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
+    QApplication::setApplicationName("MD5Checker"); //TODO: better name.
+    QApplication::setApplicationVersion("♪"); //TODO: to change at first release.
+    QApplication::setOrganizationName("D-25");
+    QApplication::setOrganizationDomain("http://d-25.net");
+    QApplication::setWindowIcon(QIcon(":/icons/settings_advanced")); //TODO: make an icon.
+
     /*
      * Load a new language.
      * To make it happen, the language inside the Resource file MUST BE
