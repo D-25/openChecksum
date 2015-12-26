@@ -16,12 +16,14 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     dialogstyle.cpp \
     comparechecksums.cpp \
-    settingpage.cpp
+    settingpage.cpp \
+    datacalc.cpp
 
 HEADERS  += mainwindow.h \
     dialogstyle.h \
     comparechecksums.h \
-    settingpage.h
+    settingpage.h \
+    datacalc.h
 
 FORMS    += mainwindow.ui \
     settingpage.ui

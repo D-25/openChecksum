@@ -157,7 +157,7 @@ void SettingPage::on_button_resetStatistics_clicked()
         settings.remove("statistics/checkCounter");
         settings.remove("statistics/checkEnded");
         settings.remove("statistics/checkAborted");
-        //settings.remove("statistics/totalTime");
+        settings.remove("statistics/totalTime");
         //settings.remove("statistics/totalData");
         settings.remove("statistics/lastFile");
         dialogStyle_info(tr("Fatto!"), tr("Le statistiche sono state ripristinate."));

@@ -18,6 +18,7 @@
 #include "settingpage.h"
 #include "dialogstyle.h"
 #include "comparechecksums.h"
+#include "datacalc.h"
 
 /*
  * A primordial version of the program.
@@ -37,8 +38,8 @@ QString fileNameCompare;
 int statistic_checkCounter;
 int statistic_checkEnded;
 int statistic_checkAborted;
-//qint64 statistic_totalTime;
-//qint64 statistic_totalData;
+qint64 statistic_totalTime;
+qint64 statistic_totalData; //TODO
 QString statistic_lastFile;
 
 int Speed = 262144;
@@ -52,7 +53,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->checkingBar->setVisible(false);
     ui->abortButton->setVisible(false);
 
-    loadStatistics();
     this->setWindowTitle(tr("%1 %2").arg(QApplication::applicationName()).arg(QApplication::applicationVersion()));
 
     setAcceptDrops(true);
@@ -92,8 +92,8 @@ void MainWindow::loadStatistics()
     statistic_checkCounter = settings.value("statistics/checkCounter", 0).toInt();
     statistic_checkEnded = settings.value("statistics/checkEnded", 0).toInt();
     statistic_checkAborted = settings.value("statistics/checkAborted", 0).toInt();
-    //statistic_totalTime = settings.value("statistics/totalTime", 0);
-    //statistic_totalData = settings.value("statistics/totalData", 0);
+    statistic_totalTime = settings.value("statistics/totalTime", -1).toULongLong();
+    statistic_totalData = settings.value("statistics/totalData", 0).toULongLong();
     statistic_lastFile = settings.value("statistics/lastFile", tr("Nessun file ancora analizzato.")).toString();
     qDebug() << "Statistics loaded!";
 }
@@ -179,6 +179,7 @@ void MainWindow::on_startCheck_clicked()
     bool showLastFile = settings.value("saveLastFile", 1).toBool();
 
     qDebug() << "Settings loaded: " << "byteCheckSelected..." << byteCheckSelected << "getFrozenStatus..." << getFrozenStatus << "showLastFile..." << showLastFile;
+    loadStatistics();
 
     QString fileName = ui->fileSelectLocation->text();
 
@@ -304,20 +305,7 @@ void MainWindow::on_startCheck_clicked()
         if (aborted == false)
         {
             qDebug() << "Checking done! Time Elapsed (ms): " << timeCount.elapsed();
-            int timeSecond = timeCount.elapsed() / 1000;
-            int timeMinute = (timeSecond / 60) % 60;
-            int timeHour = timeSecond / 3600;
-            timeSecond = timeSecond % 60;
-
-            QString timeString = (QString("%1:%2:%3")
-                                .arg(timeHour, 2, 10, QLatin1Char('0'))
-                                .arg(timeMinute, 2, 10, QLatin1Char('0'))
-                                .arg(timeSecond, 2, 10, QLatin1Char('0')));
-
-            if (timeString == "00:00:00")
-            {
-                timeString = tr("meno di un secondo");
-            }
+            QString timeString = timeCalc(timeCount.elapsed());
 
             if (checkAndCompare == false)
             {
@@ -357,9 +345,11 @@ void MainWindow::on_startCheck_clicked()
                 if (checkAndCompare == true) { checkAndCompare = false; } // Make global value deactivated, so Comparation Mode won't start next time.
         }
 
+        statistic_totalTime = statistic_totalTime + timeCount.elapsed();
         settings.setValue("statistics/checkCounter", statistic_checkCounter);
         settings.setValue("statistics/checkEnded", statistic_checkEnded);
         settings.setValue("statistics/checkAborted", statistic_checkAborted);
+        settings.setValue("statistics/totalTime", statistic_totalTime);
         if (showLastFile == true) { settings.setValue("statistics/lastFile", statistic_lastFile); }
         qDebug() << "Statistics updated!";
 }
@@ -408,13 +398,15 @@ void MainWindow::on_action_Statistics_triggered()
 
     if (showLastFile == false)
     {
-        lastFile = tr("<i>Funzione disabilitata nelle impostazioni.</i>");
+        lastFile = tr("<i>funzione disabilitata nelle impostazioni.</i>");
     }
 
     else
     {
         lastFile = statistic_lastFile;
     }
+
+    QString totalTime = timeCalc(statistic_totalTime);
 
 
 
@@ -425,5 +417,5 @@ void MainWindow::on_action_Statistics_triggered()
                                                                    "<b>Tempo totale di analisi: </b> %4<br/>"
                                                                    "<b>Dimensione totale file analizzati: </b> %5"
                                                                    "<hr>"
-                                                                   "<b>Ultimo file analizzato: </b> %6<br/>").arg(QString::number(statistic_checkCounter), QString::number(statistic_checkEnded), QString::number(statistic_checkAborted), "TODO!", "TODO!!", lastFile));
+                                                                   "<b>Ultimo file analizzato: </b> %6<br/>").arg(QString::number(statistic_checkCounter), QString::number(statistic_checkEnded), QString::number(statistic_checkAborted), totalTime, "TODO!!", lastFile));
 }
