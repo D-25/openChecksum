@@ -402,6 +402,8 @@ void MainWindow::on_action_Statistics_triggered()
 
     QSettings settings("D-25" ,"MD5Checker");
     bool showLastFile = settings.value("saveLastFile", 1).toBool();
+    QString noinfo = tr("<i>nessun dato disponibile.</i>");
+    QString notready = tr("<i>dati non ancora pronti.</i>");
 
     loadStatistics();
 
@@ -457,7 +459,7 @@ void MainWindow::on_action_Statistics_triggered()
 
     else
     {
-        dataTotal = tr("<i>nessun dato disponibile.</i>");
+        dataTotal = noinfo;
     }
 
     if (statistic_totalDataChecked != 0)
@@ -480,12 +482,19 @@ void MainWindow::on_action_Statistics_triggered()
 
     else
     {
-        dataChecked = tr("<i>nessun dato disponibile.</i>");
+        dataChecked = noinfo;
     }
 
     if (dataRatio == -1)
     {
-        dataRatioString = tr("<i>nessun dato disponibile.</i>");
+        dataRatioString = noinfo;
+    }
+
+    else if (dataRatio > 100) // Due to a block-size checking, dataChecked may be higher than dataTotal, so it's hidden.
+    {
+        dataChecked = notready;
+        dataTotal = notready;
+        dataRatioString = notready;
     }
 
     else
