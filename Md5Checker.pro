@@ -12,6 +12,8 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = Md5Checker
 TEMPLATE = app
 
+RC_FILE = Md5Checker.rc
+
 SOURCES += main.cpp\
         mainwindow.cpp \
     dialogstyle.cpp \
@@ -35,3 +37,6 @@ RESOURCES += \
 TRANSLATIONS += \
     languages/lang_it.ts
     languages/lang_en.ts
+
+DISTFILES += \
+    Md5Checker.rc

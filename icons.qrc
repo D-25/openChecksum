@@ -9,5 +9,6 @@
         <file alias="reset">icons/16x16/reset.png</file>
         <file alias="flag_unknown">icons/16x16/worldwide.png</file>
         <file alias="settings_statistics">icons/32x32/statistics.png</file>
+        <file alias="ico_windows">icons/windows-icon.ico</file>
     </qresource>
 </RCC>
