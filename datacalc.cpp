@@ -23,7 +23,7 @@ QString timeCalc(qint64 elapsed)
 
     if (elapsed == -1)
     {
-        timeString = QObject::tr("<i>inizia ad analizzare per ricevere statistiche sul tempo!</i>");
+        timeString = QObject::tr("<i>nessun dato disponibile.</i>");
     }
 
     return timeString;

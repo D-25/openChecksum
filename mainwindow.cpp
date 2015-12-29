@@ -39,7 +39,8 @@ int statistic_checkCounter;
 int statistic_checkEnded;
 int statistic_checkAborted;
 qint64 statistic_totalTime;
-qint64 statistic_totalData; //TODO
+qint64 statistic_totalDataChecked; //TODO
+qint64 statistic_totalData;
 QString statistic_lastFile;
 
 int Speed = 262144;
@@ -93,6 +94,7 @@ void MainWindow::loadStatistics()
     statistic_checkEnded = settings.value("statistics/checkEnded", 0).toInt();
     statistic_checkAborted = settings.value("statistics/checkAborted", 0).toInt();
     statistic_totalTime = settings.value("statistics/totalTime", -1).toULongLong();
+    statistic_totalDataChecked = settings.value("statistics/totalDataChecked", 0).toULongLong();
     statistic_totalData = settings.value("statistics/totalData", 0).toULongLong();
     statistic_lastFile = settings.value("statistics/lastFile", tr("Nessun file ancora analizzato.")).toString();
     qDebug() << "Statistics loaded!";
@@ -236,6 +238,7 @@ void MainWindow::on_startCheck_clicked()
         qint64 byteReaden = 0;
         qint64 fileSize = fileSelected.size();
 
+
         int fileSizeKB = fileSize / 1024;
         int fileSizeMB = fileSizeKB / 1024;
         int fileSizeGB = fileSizeMB / 1024;
@@ -290,6 +293,7 @@ void MainWindow::on_startCheck_clicked()
 
         }
 
+        statistic_totalDataChecked = statistic_totalDataChecked + byteReaden;
         enableAll();
 
 
@@ -346,10 +350,13 @@ void MainWindow::on_startCheck_clicked()
         }
 
         statistic_totalTime = statistic_totalTime + timeCount.elapsed();
+        statistic_totalData = statistic_totalData + fileSize;
         settings.setValue("statistics/checkCounter", statistic_checkCounter);
         settings.setValue("statistics/checkEnded", statistic_checkEnded);
         settings.setValue("statistics/checkAborted", statistic_checkAborted);
         settings.setValue("statistics/totalTime", statistic_totalTime);
+        settings.setValue("statistics/totalDataChecked", statistic_totalDataChecked);
+        settings.setValue("statistics/totalData", statistic_totalData);
         if (showLastFile == true) { settings.setValue("statistics/lastFile", statistic_lastFile); }
         qDebug() << "Statistics updated!";
 }
@@ -390,10 +397,16 @@ void MainWindow::on_action_Exit_triggered()
 
 void MainWindow::on_action_Statistics_triggered()
 {
+
+    // STATISTICS LOAD
+
     QSettings settings("D-25" ,"MD5Checker");
     bool showLastFile = settings.value("saveLastFile", 1).toBool();
 
     loadStatistics();
+
+    // LAST FILE CHECKED
+
     QString lastFile;
 
     if (showLastFile == false)
@@ -406,16 +419,90 @@ void MainWindow::on_action_Statistics_triggered()
         lastFile = statistic_lastFile;
     }
 
-    QString totalTime = timeCalc(statistic_totalTime);
+    QString totalTime = timeCalc(statistic_totalTime); // TOTAL TIME
 
+    // DATA CALC
 
+    QString dataChecked;
+    QString dataTotal;
+    QString dataRatioString;
+
+    int dataCheckedKB = statistic_totalDataChecked / 1024;
+    int dataCheckedMB = dataCheckedKB / 1024;
+    int dataCheckedGB = dataCheckedMB / 1024;
+    int dataTotalKB = statistic_totalData / 1024;
+    int dataTotalMB = dataTotalKB / 1024;
+    int dataTotalGB = dataTotalMB / 1024;
+    int dataRatio = -1;
+
+    if (statistic_totalData != 0)
+    {
+        dataRatio = (statistic_totalDataChecked * 100) / statistic_totalData;
+
+        if (dataTotalMB < 5)
+        {
+            dataTotal = QString("%1 KB").arg(dataTotalKB);
+        }
+
+        else if (dataTotalGB < 1)
+        {
+            dataTotal = QString("%1 MB").arg(dataTotalMB);
+        }
+
+        else
+        {
+            dataTotal = QString("%1 GB (%2 MB)").arg(dataTotalGB).arg(dataTotalMB);
+        }
+    }
+
+    else
+    {
+        dataTotal = tr("<i>nessun dato disponibile.</i>");
+    }
+
+    if (statistic_totalDataChecked != 0)
+    {
+        if (dataCheckedMB < 5)
+        {
+            dataChecked = QString("%1 KB").arg(dataCheckedKB);
+        }
+
+        else if (dataCheckedGB < 1)
+        {
+            dataChecked = QString("%1 MB").arg(dataCheckedMB);
+        }
+
+        else
+        {
+            dataChecked = QString("%1 GB (%2 MB)").arg(dataCheckedGB).arg(dataCheckedMB);
+        }
+    }
+
+    else
+    {
+        dataChecked = tr("<i>nessun dato disponibile.</i>");
+    }
+
+    if (dataRatio == -1)
+    {
+        dataRatioString = tr("<i>nessun dato disponibile.</i>");
+    }
+
+    else
+    {
+        dataRatioString = QString("%1 %").arg(dataRatio);
+    }
+
+    // SHOW STATISTICS
 
     dialogStyle_info(ui->action_Statistics->text().remove("&"), tr("<br/><b>Analisi iniziate: </b> %1<br/>"
                                                                    "<b>Analisi terminate: </b> %2<br/>"
                                                                    "<b>Analisi interrotte: </b> %3"
                                                                    "<hr>"
                                                                    "<b>Tempo totale di analisi: </b> %4<br/>"
-                                                                   "<b>Dimensione totale file analizzati: </b> %5"
+                                                                   "<b>Dimensione totale file analizzati: </b> %5<br/>"
+                                                                   "<b>Dimensione totale file scelti: </b>%6<br/>"
+                                                                   "<b>Rapporto percentuale: </b>%7"
                                                                    "<hr>"
-                                                                   "<b>Ultimo file analizzato: </b> %6<br/>").arg(QString::number(statistic_checkCounter), QString::number(statistic_checkEnded), QString::number(statistic_checkAborted), totalTime, "TODO!!", lastFile));
+                                                                   "<b>Ultimo file analizzato: </b> %8<br/>").arg(QString::number(statistic_checkCounter), QString::number(statistic_checkEnded), QString::number(statistic_checkAborted), totalTime, dataChecked, dataTotal, dataRatioString, lastFile));
 }
