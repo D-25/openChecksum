@@ -11,7 +11,7 @@ int inputCheckHEX(int checkType, QString input)
     /*
      * Usage:
      *
-     * if (inputCheckHEX(input) == 0)
+     * if (inputCheckHEX(checkType ,input) == 0)
      * {
      *      do something.
      * }
