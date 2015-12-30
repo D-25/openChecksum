@@ -39,7 +39,7 @@ int statistic_checkCounter;
 int statistic_checkEnded;
 int statistic_checkAborted;
 qint64 statistic_totalTime;
-qint64 statistic_totalDataChecked; //TODO
+qint64 statistic_totalDataChecked;
 qint64 statistic_totalData;
 QString statistic_lastFile;
 
@@ -74,6 +74,9 @@ void MainWindow::disableAll()
     ui->fileSelectBrowse->setEnabled(false);
     ui->comparationCheck->setEnabled(false);
     ui->comparationString->setEnabled(false);
+    ui->radioMd5->setEnabled(false);
+    ui->radioSHA1->setEnabled(false);
+    ui->radioSHA256->setEnabled(false);
     ui->menuBar->setEnabled(false);
 }
 
@@ -84,6 +87,9 @@ void MainWindow::enableAll()
     ui->fileSelectBrowse->setEnabled(true);
     ui->comparationCheck->setEnabled(true);
     ui->comparationString->setEnabled(true);
+    ui->radioMd5->setEnabled(true);
+    ui->radioSHA1->setEnabled(true);
+    ui->radioSHA256->setEnabled(true);
     ui->menuBar->setEnabled(true);
 }
 
@@ -155,6 +161,7 @@ void MainWindow::on_fileSelectBrowse_clicked()
         if (checkAndCompare == false) { ui->fileSelectLocation->setText(stringFileName); }
         else
         {
+            ui->comparationCheck->setChecked(false);
             fileNameCompare = stringFileName; // Using global value.
             on_startCheck_clicked();
         }
@@ -176,6 +183,28 @@ void MainWindow::on_startCheck_clicked()
     QSettings settings("D-25" ,"MD5Checker");
     QTime timeCount;
 
+    int checkType; // 0: MD5, 1: SHA-1, 2: SHA-256.
+    QString checkTypeString;
+
+    if (ui->radioMd5->isChecked())
+    {
+        checkType = 0;
+        checkTypeString = "MD5";
+    }
+
+    else if (ui->radioSHA1->isChecked())
+    {
+        checkType = 1;
+        checkTypeString = "SHA-1";
+    }
+
+    else if (ui->radioSHA256->isChecked())
+    {
+        checkType = 2;
+        checkTypeString = "SHA-256";
+    }
+
+
     int byteCheckSelected = settings.value("byteCheck", 262144).toInt();
     bool getFrozenStatus = settings.value("applyFrozenStatus", 0).toBool();
     bool showLastFile = settings.value("saveLastFile", 1).toBool();
@@ -193,13 +222,20 @@ void MainWindow::on_startCheck_clicked()
     // follow the HEX-system. If not, checking won't start.
     if (ui->comparationCheck->isChecked())
     {
-        if (inputCheckHEX(ui->comparationString->text()) == 0)
+        if (inputCheckHEX(checkType, ui->comparationString->text()) == 0)
         {
-            dialogStyle_info(QObject::tr("Codice scorretto"), QObject::tr("<b>Il codice da verificare non va bene.</b><br/>Hai inserito il codice: %1<br/>"
-                                "Il codice inserito contiene caratteri non ammessi nel sistema esadecimale, oppure non soddisfa la lunghezza"
-                                " di 32 caratteri. Reinserire e controllare il codice.").arg(ui->comparationString->text()));
+            dialogStyle_info(tr("Comparazione non possibile"), tr("La stringa inserita non è valida."
+                                                                  "<ul><li>I numeri da 0 a 9 sono ammessi.</li>"
+                                                                  "<li>Solo le lettere da A ad F sono ammesse.</li>"
+                                                                  "<li>Le lettere non fanno distinzione da maiuscole a minuscole.</li>"
+                                                                  "<li>Tipicamente trovi queste informazioni nelle pagine di Download.</li>"
+                                                                  "<li>Utilizza la funzione Analizza e Compara nel menù File per generare un codice da comparare.</li>"
+                                                                  "<li>Ogni tipo di analisi ha una lughezza prestabilita diversa.</li>"
+                                                                  "<ul><li><b>MD5: </b> 32 caratteri.</li>"
+                                                                  "<li><b>SHA-1: </b> 40 caratteri.</li>"
+                                                                  "<li><b>SHA-256: </b> 64 caratteri.</li></ul></ul>"));
 
-            qDebug() << "Checking stopped due invalid MD5 inserted by user.";
+            qDebug() << "Checking stopped due invalid Checksum inserted by user.";
             return;
         }
     }
@@ -216,7 +252,9 @@ void MainWindow::on_startCheck_clicked()
         }
     }
 
-    QCryptographicHash checkProcess(QCryptographicHash::Md5);
+    QCryptographicHash checkProcess0(QCryptographicHash::Md5);
+    QCryptographicHash checkProcess1(QCryptographicHash::Sha1);
+    QCryptographicHash checkProcess2(QCryptographicHash::Sha256);
 
         timeCount.start();
         fileSelected.open(QFile::ReadOnly);
@@ -249,7 +287,28 @@ void MainWindow::on_startCheck_clicked()
         aborted = false;
         while(!fileSelected.atEnd())
         {
-            checkProcess.addData(fileSelected.read(byteCheckSelected));
+            switch (checkType)
+            {
+                case 0:
+                {
+                    checkProcess0.addData(fileSelected.read(byteCheckSelected));
+                    break;
+                }
+
+                case 1:
+                {
+                    checkProcess1.addData(fileSelected.read(byteCheckSelected));
+                    break;
+                }
+
+                case 2:
+                {
+                    checkProcess2.addData(fileSelected.read(byteCheckSelected));
+                    break;
+                }
+            }
+
+
             byteReaden = byteReaden + byteCheckSelected; // Byte Readen by application is based of current byteCheckSelected.
 
             int byteReadenPerCent = (byteReaden * 100) / fileSize;
@@ -302,9 +361,31 @@ void MainWindow::on_startCheck_clicked()
 #endif
         ui->checkingBar->setVisible(false);
         ui->abortButton->setVisible(false);
-        QByteArray md5Data = checkProcess.result();
-        QString md5DataHEX = md5Data.toHex();
 
+        QByteArray md5Data;
+
+        switch (checkType)
+        {
+            case 0:
+            {
+                md5Data = checkProcess0.result();
+                break;
+            }
+
+            case 1:
+            {
+                md5Data = checkProcess1.result();
+                break;
+            }
+
+            case 2:
+            {
+                md5Data = checkProcess2.result();
+                break;
+            }
+        }
+
+        QString md5DataHEX = md5Data.toHex();
 
         if (aborted == false)
         {
@@ -313,7 +394,7 @@ void MainWindow::on_startCheck_clicked()
 
             if (checkAndCompare == false)
             {
-                ui->checkInfo->setText(tr("<b>MD5 del File scelto:</b> %1<br/><b>Tempo trascorso:</b> %2").arg(md5DataHEX, timeString));
+                ui->checkInfo->setText(tr("<b>%1 del File scelto:</b> %2<br/><b>Tempo trascorso:</b> %3").arg(checkTypeString, md5DataHEX, timeString));
 
                 if (ui->comparationCheck->isChecked())
                 {
@@ -325,7 +406,7 @@ void MainWindow::on_startCheck_clicked()
 
             else // COMPARATION MODE
             {
-                ui->checkInfo->setText(tr("MD5 del File da comparare calcolato. Adesso scegli il File da comparare e avvia l'analisi."));
+                ui->checkInfo->setText(tr("%1 del File da comparare calcolato. Adesso scegli il File da comparare e avvia l'analisi.").arg(checkTypeString));
 
                 if (ui->fileSelectLocation->text().isNull() || ui->fileSelectLocation->text().isEmpty()) // Check if a File is selected,
                                                                                                          // to make enabled START CHECK buttons.

@@ -5,7 +5,7 @@
 #include <QRegularExpression>
 #include "dialogstyle.h"
 
-int inputCheckHEX(QString input)
+int inputCheckHEX(int checkType, QString input)
 {
 
     /*
@@ -29,11 +29,39 @@ int inputCheckHEX(QString input)
         HEXisOK = 0;
     }
 
-    //check if original string is smaller or bigger than 32 chars
+    //check if original string is smaller or bigger than standards.
 
-    if(input.length() != 32){
+    switch (checkType)
+    {
+        case 0: // MD5
+        {
+            if(input.length() != 32)
+            {
+                HEXisOK = 0;
+            }
 
-        HEXisOK = 0;
+            break;
+        }
+
+        case 1:
+        {
+            if(input.length() != 40)
+            {
+                HEXisOK = 0;
+            }
+
+            break;
+        }
+
+        case 2:
+        {
+            if(input.length() != 64)
+            {
+                HEXisOK = 0;
+            }
+
+            break;
+        }
     }
 
     return HEXisOK;
@@ -60,11 +88,11 @@ int comparationStart(QString original, QString checked)
     {
         comparationSuccess = 1;
 
-        dialogStyle_info(QObject::tr("Risultati della comparazione"), QObject::tr("Il controllo è riuscito: i due valori sono uguali."));
+        dialogStyle_info(QObject::tr("Risultato della comparazione: <font color=\"green\">riuscito</font>"), QObject::tr("Il controllo è riuscito: i due valori sono uguali."));
     }
     else
     {
-       dialogStyle_info(QObject::tr("Risultati della comparazione"), QObject::tr("<b>I due valori non combaciano.</b><br/><br/>Originale: %1<br/>File analizzato: %2<br/><br/>"
+       dialogStyle_info(QObject::tr("Risultato della comparazione: <font color=\"red\">fallito</font>"), QObject::tr("I due valori non combaciano.<br/><br/><b>Originale: </b>%1<br/><b>File analizzato: </b>%2<br/><br/>"
                            "Utilizzare questo File potrebbe portare a risultati indesiderati: riscaricare il File se necessario fino a quando il controllo non riesce.").arg(original, checked));
     }
 

@@ -4,7 +4,7 @@
 #include <QString>
 
 int comparationStart(QString original, QString checked);
-int inputCheckHEX(QString input);
+int inputCheckHEX(int checkType, QString input);
 
 #endif // COMPARECHECKSUMS
 

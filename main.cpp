@@ -9,7 +9,7 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
 
     QApplication::setApplicationName("MD5Checker"); //TODO: better name.
-    QApplication::setApplicationVersion("♪ ora con una icona"); //TODO: to change at first release.
+    QApplication::setApplicationVersion("♪"); //TODO: to change at first release.
     QApplication::setOrganizationName("D-25");
     QApplication::setOrganizationDomain("http://d-25.net");
     QApplication::setWindowIcon(QIcon(":/icons/ico_windows")); //TODO: temporary icon?

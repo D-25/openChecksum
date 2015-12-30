@@ -7,7 +7,7 @@ This project is just starting: we have many ideas and we are working to make it 
 #### To Do List
 - [ ] Translate at least in English (now is only in Italian and my english is really bad: can you help me?)
 - [x] Settings!
-- [ ] Implement SHA checking.
+- [x] Implement SHA checking.
 - [ ] Better Windows integration.
 - [ ] Multiple file checking.
 - [x] Drag & Drop support.

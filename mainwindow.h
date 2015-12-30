@@ -1,6 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include <QCryptographicHash>
 #include <QMainWindow>
 
 #ifdef Q_OS_WIN32
@@ -42,6 +43,7 @@ private slots:
     void on_action_Exit_triggered();
 
     void on_action_Statistics_triggered();
+
 
 private:
     Ui::MainWindow *ui;
