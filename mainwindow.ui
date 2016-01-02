@@ -283,13 +283,12 @@
     <property name="title">
      <string>?</string>
     </property>
-    <addaction name="action_About"/>
     <addaction name="separator"/>
     <addaction name="action_Github"/>
     <addaction name="action_Sourceforge"/>
     <addaction name="separator"/>
     <addaction name="action_Statistics"/>
-    <addaction name="action_Credits"/>
+    <addaction name="action_About"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuD_25"/>
@@ -319,6 +318,10 @@
    </property>
   </action>
   <action name="action_D25Website">
+   <property name="icon">
+    <iconset resource="icons.qrc">
+     <normaloff>:/icons/d-25.net</normaloff>:/icons/d-25.net</iconset>
+   </property>
    <property name="text">
     <string>Il nostro &amp;sito!</string>
    </property>
@@ -327,6 +330,10 @@
    </property>
   </action>
   <action name="action_D25FacebookPage">
+   <property name="icon">
+    <iconset resource="icons.qrc">
+     <normaloff>:/icons/facebook</normaloff>:/icons/facebook</iconset>
+   </property>
    <property name="text">
     <string>Su &amp;Facebook!</string>
    </property>
@@ -351,12 +358,12 @@
   </action>
   <action name="action_Github">
    <property name="text">
-    <string>MD5Checker su &amp;GitHub</string>
+    <string notr="true">GITHUB_MENU</string>
    </property>
   </action>
   <action name="action_Sourceforge">
    <property name="text">
-    <string>MD5Checker su &amp;SourceForge</string>
+    <string notr="true">SOURCEFORGE_MENU</string>
    </property>
   </action>
   <action name="action_OpenCompare">

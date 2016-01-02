@@ -14,11 +14,13 @@
 #include <QTranslator>
 #include <QSettings>
 #include <QTime>
+#include <QDesktopServices>
 
 #include "settingpage.h"
 #include "dialogstyle.h"
 #include "comparechecksums.h"
 #include "datacalc.h"
+#include "about.h"
 
 /*
  * A primordial version of the program.
@@ -59,6 +61,9 @@ MainWindow::MainWindow(QWidget *parent) :
 #ifdef Q_OS_MAC
     this->setFixedSize(this->width(), this->height() - 22);
 #endif
+
+    ui->action_Github->setText(tr("%1 su &GitHub").arg(QApplication::applicationName()));
+    ui->action_Sourceforge->setText(tr("%1 su &SourceForge").arg(QApplication::applicationName()));
 
     setAcceptDrops(true);
 }
@@ -599,4 +604,20 @@ void MainWindow::on_action_Statistics_triggered()
                                                                    "<b>Rapporto percentuale: </b>%7"
                                                                    "<hr>"
                                                                    "<b>Ultimo file analizzato: </b> %8<br/>").arg(QString::number(statistic_checkCounter), QString::number(statistic_checkEnded), QString::number(statistic_checkAborted), totalTime, dataChecked, dataTotal, dataRatioString, lastFile));
+}
+
+void MainWindow::on_action_D25Website_triggered()
+{
+    QDesktopServices::openUrl(QUrl("http://d-25.net"));
+}
+
+void MainWindow::on_action_D25FacebookPage_triggered()
+{
+    QDesktopServices::openUrl(QUrl("https://www.facebook.com/d25social"));
+}
+
+void MainWindow::on_action_About_triggered()
+{
+    about aboutUs;
+    aboutUs.exec();
 }

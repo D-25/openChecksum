@@ -11,5 +11,17 @@
         <file alias="settings_statistics">icons/32x32/statistics.png</file>
         <file alias="ico_windows">icons/windows-icon.ico</file>
         <file alias="ico_mac">icons/macintosh-icon.icns</file>
+        <file alias="d-25.net">icons/16x16/d25.png</file>
+        <file alias="facebook">icons/16x16/facebook.png</file>
+        <file alias="appIcon48">icons/48x48/appIcon.png</file>
+        <file alias="d-25.net48">icons/48x48/D25.png</file>
+    </qresource>
+    <qresource prefix="/icons/social">
+        <file alias="social_d-25">icons/social/favicon32.png</file>
+        <file alias="social_facebook">icons/social/facebook.png</file>
+        <file alias="social_g+">icons/social/googleplus.png</file>
+        <file alias="social_twitter">icons/social/twitter.png</file>
+        <file alias="social_sourceforge">icons/social/sourceforce.png</file>
+        <file alias="social_github">icons/social/github.png</file>
     </qresource>
 </RCC>

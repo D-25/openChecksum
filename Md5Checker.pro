@@ -24,16 +24,19 @@ SOURCES += main.cpp\
     dialogstyle.cpp \
     comparechecksums.cpp \
     settingpage.cpp \
-    datacalc.cpp
+    datacalc.cpp \
+    about.cpp
 
 HEADERS  += mainwindow.h \
     dialogstyle.h \
     comparechecksums.h \
     settingpage.h \
-    datacalc.h
+    datacalc.h \
+    about.h
 
 FORMS    += mainwindow.ui \
-    settingpage.ui
+    settingpage.ui \
+    about.ui
 
 RESOURCES += \
     icons.qrc \
