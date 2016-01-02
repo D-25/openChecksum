@@ -13,7 +13,6 @@ int main(int argc, char *argv[])
     QApplication::setOrganizationName("D-25");
     QApplication::setOrganizationDomain("http://d-25.net");
     QApplication::setWindowIcon(QIcon(":/icons/ico_windows")); //TODO: temporary icon?
-                                                               //TODO: what about Mac OSX icon?
 
     /*
      * Load a new language.

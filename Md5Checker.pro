@@ -14,6 +14,11 @@ TEMPLATE = app
 
 RC_FILE = Md5Checker.rc
 
+macx
+{
+    ICON = icons/macintosh-icon.icns
+}
+
 SOURCES += main.cpp\
         mainwindow.cpp \
     dialogstyle.cpp \

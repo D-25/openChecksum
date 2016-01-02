@@ -39,7 +39,11 @@ int dialogStyle_question(QString title, QString message, QString button_Yes, QSt
     messageBox.setButtonText(QMessageBox::Yes, button_Yes);
     messageBox.setButtonText(QMessageBox::No, button_No);
     messageBox.setDefaultButton(QMessageBox::Yes);
+#ifdef Q_OS_MAC
+    messageBox.setIcon(QMessageBox::Warning);
+#else
     messageBox.setIcon(QMessageBox::Question);
+#endif
 
     if (messageBox.exec() == QMessageBox::Yes)
     {

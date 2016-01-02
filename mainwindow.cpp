@@ -23,7 +23,7 @@
 /*
  * A primordial version of the program.
  * More functions coming soon, just stay tuned.
- * Please.
+ * First version is coming!
  *
  * Danilo Civati (http://d-25.net)
  * cdanilo25@gmail.com
@@ -55,6 +55,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->abortButton->setVisible(false);
 
     this->setWindowTitle(tr("%1 %2").arg(QApplication::applicationName()).arg(QApplication::applicationVersion()));
+
+#ifdef Q_OS_MAC
+    this->setFixedSize(this->width(), this->height() - 22);
+#endif
 
     setAcceptDrops(true);
 }
@@ -134,9 +138,9 @@ void MainWindow::dropEvent(QDropEvent *event)
 
         droppedLocation.remove(QString("file:///")); // We need the file:/// prefix to mantain URL-style
                                                      // and block all unknown position.
-#if defined(linux) || defined(unix) // On Linux/Unix system add '/' to mantain file system structure. It works on Mac?
+#if defined(linux) || defined(unix) || defined(Q_OS_MAC) // On Linux/Unix/Mac system add '/' to mantain file system structure.
         droppedLocation.insert(0, "/");
-        qDebug() << "*** Linux/Unix system detected: mantaining file system structure.";
+        qDebug() << "*** Linux/Unix/Mac system detected: mantaining file system structure.";
 #endif
 
         ui->fileSelectLocation->setText(droppedLocation);
