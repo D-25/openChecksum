@@ -15,9 +15,6 @@ public:
     explicit about(QWidget *parent = 0);
     ~about();
 
-private slots:
-    void on_webSitePicture_linkActivated(const QString &link);
-
 private:
     Ui::about *ui;
 };

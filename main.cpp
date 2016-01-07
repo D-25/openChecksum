@@ -8,7 +8,24 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    QApplication::setApplicationName("MD5Checker"); //TODO: better name.
+    QApplication::setApplicationName("MD5Checker"); //TODO: we need to seriously think about a new name. It doesn't calculate only MD5 now, so CHECKSUM is most appropriate.
+                                                    /*
+                                                     * SOME IDEAS...
+                                                     * - Ultra Checksum
+                                                     * - Checksum Analizer
+                                                     * - Checksum Calculator
+                                                     * - Super Checksum
+                                                     * - QChecksum (ah-ha, library referement!)
+                                                     * - qtChecksum <-- mh?
+                                                     * - multiChecksum
+                                                     * - Meow meow checksum bau
+                                                     * - openChecksum Checker
+                                                     * - Checksum Checker... without open
+                                                     * - Gotta check'em all!
+                                                     * - Checksum Tools
+                                                     * - I'm out of ideas.
+                                                     *
+                                                     */
     QApplication::setApplicationVersion("♪"); //TODO: to change at first release.
     QApplication::setOrganizationName("D-25");
     QApplication::setOrganizationDomain("http://d-25.net");
