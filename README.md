@@ -1,4 +1,4 @@
-# openChecker | MD5, SHA-1 and SHA-256 checker tool.
+# openChecksum | MD5, SHA-1 and SHA-256 checker tool.
 Check MD5, SHA-1 and SHA-256 with an easy tool developed with QT.
 Previously was named MD5Checker, so inside the code may be some old references.
 

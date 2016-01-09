@@ -23,7 +23,7 @@ SettingPage::~SettingPage()
 
 void SettingPage::loadSettings()
 {
-    QSettings settings("D-25" ,"MD5Checker");
+    QSettings settings("D-25" ,"openChecksum");
 
     // LANGUAGE
     int languageSelected = settings.value("language", 0).toInt();
@@ -64,7 +64,7 @@ void SettingPage::loadSettings()
 
 void SettingPage::writeSetting()
 {
-    QSettings settings("D-25", "MD5Checker");
+    QSettings settings("D-25", "openChecksum");
 
     // settings.setValue("test", ui->spinBox->value());
 
@@ -111,7 +111,7 @@ void SettingPage::on_settings_Cancel_clicked()
 
 void SettingPage::on_settings_OK_clicked()
 {
-    QSettings settings("D-25", "MD5Checker");
+    QSettings settings("D-25", "openChecksum");
 
     int languageSelected = settings.value("language", 0).toInt();
     writeSetting();
@@ -150,7 +150,7 @@ void SettingPage::on_reset_SaveLastFile_clicked()
 
 void SettingPage::on_button_resetStatistics_clicked()
 {
-    QSettings settings("D-25", "MD5Checker");
+    QSettings settings("D-25", "openChecksum");
 
     if (dialogStyle_question(ui->button_resetStatistics->text(), tr("Sei sicuro di voler resettare le statistiche?<br/>L'operazione non può essere annullata."), tr("Elimina"), tr("Annulla")) == 1)
     {

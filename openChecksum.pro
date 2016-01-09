@@ -12,7 +12,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = Md5Checker
 TEMPLATE = app
 
-RC_FILE = Md5Checker.rc
+RC_FILE = openChecksum.rc
 
 macx
 {
@@ -47,4 +47,4 @@ TRANSLATIONS += \
     languages/lang_en.ts
 
 DISTFILES += \
-    Md5Checker.rc
+    openChecksum.rc

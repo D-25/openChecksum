@@ -104,7 +104,7 @@ void MainWindow::enableAll()
 
 void MainWindow::loadStatistics()
 {
-    QSettings settings("D-25" ,"MD5Checker");
+    QSettings settings("D-25" ,"openChecksum");
     statistic_checkCounter = settings.value("statistics/checkCounter", 0).toInt();
     statistic_checkEnded = settings.value("statistics/checkEnded", 0).toInt();
     statistic_checkAborted = settings.value("statistics/checkAborted", 0).toInt();
@@ -189,7 +189,7 @@ void MainWindow::on_startCheck_clicked()
     // I can't make a function with variables because QT uses a closed system with signal slots, so I use this workaround.
     // If you have a better method, let me know on GitHub.
 
-    QSettings settings("D-25" ,"MD5Checker");
+    QSettings settings("D-25" ,"openChecksum");
     QTime timeCount;
 
     int checkType; // 0: MD5, 1: SHA-1, 2: SHA-256.
@@ -490,7 +490,7 @@ void MainWindow::on_action_Statistics_triggered()
 
     // STATISTICS LOAD
 
-    QSettings settings("D-25" ,"MD5Checker");
+    QSettings settings("D-25" ,"openChecksum");
     bool showLastFile = settings.value("saveLastFile", 1).toBool();
     QString noinfo = tr("<i>nessun dato disponibile.</i>");
     QString notready = tr("<i>dati non ancora pronti.</i>");

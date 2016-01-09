@@ -8,28 +8,11 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    QApplication::setApplicationName("MD5Checker"); //TODO: we need to seriously think about a new name. It doesn't calculate only MD5 now, so CHECKSUM is most appropriate.
-                                                    /*
-                                                     * SOME IDEAS...
-                                                     * - Ultra Checksum
-                                                     * - Checksum Analizer
-                                                     * - Checksum Calculator
-                                                     * - Super Checksum
-                                                     * - QChecksum (ah-ha, library referement!)
-                                                     * - qtChecksum <-- mh?
-                                                     * - multiChecksum
-                                                     * - Meow meow checksum bau
-                                                     * - openChecksum Checker
-                                                     * - Checksum Checker... without open
-                                                     * - Gotta check'em all!
-                                                     * - Checksum Tools
-                                                     * - I'm out of ideas.
-                                                     *
-                                                     */
+    QApplication::setApplicationName("openChecksum");
     QApplication::setApplicationVersion("♪"); //TODO: to change at first release.
     QApplication::setOrganizationName("D-25");
     QApplication::setOrganizationDomain("http://d-25.net");
-    QApplication::setWindowIcon(QIcon(":/icons/ico_windows")); //TODO: temporary icon?
+    QApplication::setWindowIcon(QIcon(":/icons/ico_windows"));
 
     /*
      * Load a new language.
@@ -41,7 +24,7 @@ int main(int argc, char *argv[])
      *
      */
 
-    QSettings settings("D-25" ,"MD5Checker");
+    QSettings settings("D-25" ,"openChecksum");
 
     int languageSelected = settings.value("language", 0).toInt();
     QTranslator language;
