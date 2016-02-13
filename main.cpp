@@ -9,7 +9,7 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
 
     QApplication::setApplicationName("openChecksum");
-    QApplication::setApplicationVersion("♪"); //TODO: to change at first release.
+    QApplication::setApplicationVersion("0.7");
     QApplication::setOrganizationName("D-25");
     QApplication::setOrganizationDomain("http://d-25.net");
     QApplication::setWindowIcon(QIcon(":/icons/ico_windows"));
