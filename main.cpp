@@ -4,12 +4,16 @@
 #include <QTranslator>
 #include <QSettings>
 
+
 int main(int argc, char *argv[])
 {
+    // Application is scaled based on screen's DPI.
+    qputenv("QT_AUTO_SCREEN_SCALE_FACTOR", "1");
+
     QApplication a(argc, argv);
 
     QApplication::setApplicationName("openChecksum");
-    QApplication::setApplicationVersion("0.7");
+    QApplication::setApplicationVersion("0.7.2");
     QApplication::setOrganizationName("D-25");
     QApplication::setOrganizationDomain("http://d-25.net");
     QApplication::setWindowIcon(QIcon(":/icons/ico_windows"));

@@ -621,3 +621,14 @@ void MainWindow::on_action_About_triggered()
     about aboutUs;
     aboutUs.exec();
 }
+
+void MainWindow::on_action_Github_triggered()
+{
+    QDesktopServices::openUrl(QUrl("https://github.com/D-25/openChecksum"));
+}
+
+void MainWindow::on_action_Sourceforge_triggered()
+{
+    QDesktopServices::openUrl(QUrl("https://sourceforge.net/projects/openchecksum/"));
+
+}

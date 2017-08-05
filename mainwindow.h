@@ -51,6 +51,10 @@ private slots:
 
     void on_action_About_triggered();
 
+    void on_action_Github_triggered();
+
+    void on_action_Sourceforge_triggered();
+
 private:
     Ui::MainWindow *ui;
 
